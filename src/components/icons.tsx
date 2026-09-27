@@ -18,6 +18,13 @@ export const ArrowRight = (p: P) => (
   </svg>
 );
 
+export const ArrowLeft = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M20 12H5" />
+    <path d="m11 18-6-6 6-6" />
+  </svg>
+);
+
 export const ArrowUpRight = (p: P) => (
   <svg {...base} {...p}>
     <path d="M7 17 17 7" />

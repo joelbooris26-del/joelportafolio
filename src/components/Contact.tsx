@@ -96,16 +96,16 @@ export function Contact() {
         />
 
         <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-6">
+          <div className="grid gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-14">
+            <div className="min-w-0 lg:col-span-6">
               <Reveal>
                 <SectionEyebrow n="07" label="Contacto" />
-                <h2 className="mt-6 font-display text-[clamp(2.4rem,6.4vw,5rem)] font-extrabold leading-[0.92] tracking-[-0.045em] text-white">
+                <h2 className="mt-6 font-display text-[clamp(2.25rem,10vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.045em] text-white">
                   ¿Tienes un negocio?
                   <br />
                   <span className="swash text-zinc-400">Pongámoslo a trabajar.</span>
                 </h2>
-                <p className="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-zinc-400">
+                <p className="mt-5 max-w-lg text-[0.98rem] leading-relaxed text-zinc-400 sm:mt-6 sm:text-[1.05rem]">
                   Cuéntame qué te quita tiempo cada semana: las llamadas que no puedes coger, los
                   mensajes sin responder, las reservas que se pierden. Te contesto con una idea clara
                   de qué se puede automatizar y una demo que puedas tocar.
@@ -147,7 +147,7 @@ export function Contact() {
                     <p className="flex items-center gap-2 font-mono text-[0.56rem] uppercase tracking-[0.18em] text-zinc-400">
                       <Pin className="h-3.5 w-3.5 text-white" /> Dónde estoy
                     </p>
-                    <p className="mt-2 text-[0.95rem] leading-snug text-white">
+                    <p className="mt-2 text-[0.9rem] leading-snug text-white sm:text-[0.95rem]">
                       {profile.city}
                       <br />
                       {profile.region}, {profile.country}

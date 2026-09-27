@@ -141,10 +141,10 @@ export function CallDemo() {
       {/* Interfaz de Smartphone en Modo Llamada (iOS / Android Dark Theme) */}
       <div className="grid gap-6 lg:grid-cols-12">
         {/* Móvil / Teléfono */}
-        <div className="mx-auto w-full max-w-sm lg:col-span-6">
-          <div className="relative overflow-hidden rounded-[2.5rem] border-4 border-[#222] bg-[#000000] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/15">
+        <div className="mx-auto w-full max-w-[19rem] lg:col-span-6 sm:max-w-sm">
+          <div className="relative overflow-hidden rounded-[1.6rem] border-2 border-[#222] bg-[#000000] p-3.5 shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/15 sm:rounded-[2.5rem] sm:border-4 sm:p-6">
             {/* Altavoz frontal / notch superior del móvil */}
-            <div className="mx-auto mb-6 h-4 w-28 rounded-full bg-[#151515] flex items-center justify-center">
+            <div className="mx-auto mb-4 hidden h-4 w-28 items-center justify-center rounded-full bg-[#151515] sm:mb-6 sm:flex">
               <div className="h-1.5 w-10 rounded-full bg-[#333]" />
             </div>
 
@@ -157,7 +157,7 @@ export function CallDemo() {
                 )}
                 <div
                   className={cn(
-                    "relative grid h-24 w-24 place-items-center rounded-full text-3xl font-bold font-display text-white shadow-2xl transition-all duration-500",
+                    "relative grid h-20 w-20 place-items-center rounded-full text-2xl font-bold font-display text-white shadow-2xl transition-all duration-500 sm:h-24 sm:w-24 sm:text-3xl",
                     status === "live"
                       ? "ring-4 ring-white/40 shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                       : "bg-[#1c1c1e]",
@@ -185,7 +185,7 @@ export function CallDemo() {
               </p>
 
               {/* Ecualizador de ondas en llamada activa */}
-              <div className="my-5 flex h-9 items-center justify-center gap-1">
+              <div className="my-4 flex h-9 items-center justify-center gap-0.5 sm:gap-1">
                 {Array.from({ length: 18 }).map((_, i) => (
                   <span
                     key={i}
@@ -202,19 +202,19 @@ export function CallDemo() {
               </div>
 
               {/* Teclado de funciones estilo iOS (Silenciar, Teclado, Altavoz, etc.) */}
-              <div className="my-2 grid grid-cols-3 gap-4">
+              <div className="my-2 grid grid-cols-3 gap-1 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setIsMuted(!isMuted)}
                   className={cn(
-                    "flex flex-col items-center gap-1 rounded-full p-3 transition-colors",
+                    "flex flex-col items-center gap-1 rounded-full p-2.5 transition-colors sm:p-3",
                     isMuted ? "bg-white text-black" : "bg-[#1c1c1e] text-white hover:bg-[#2c2c2e]",
                   )}
                 >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-4.5 w-4.5 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                   </svg>
-                  <span className="text-[0.55rem] font-medium">Silenciar</span>
+                  <span className="text-[0.5rem] font-medium sm:text-[0.55rem]">Silenciar</span>
                 </button>
 
                 <button
@@ -255,7 +255,7 @@ export function CallDemo() {
                 ) : (
                   <button
                     onClick={hangUp}
-                    className="flex items-center gap-2 rounded-full bg-[#ff453a] px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_30px_rgba(255,69,58,0.4)] transition-all hover:scale-105 active:scale-95"
+                    className="flex items-center gap-2 rounded-full bg-[#ff453a] px-5 py-3 text-[0.82rem] font-bold text-white shadow-[0_0_30px_rgba(255,69,58,0.4)] transition-all hover:scale-105 active:scale-95 sm:px-8 sm:py-3.5 sm:text-sm"
                   >
                     <PhoneOff className="h-5 w-5" />
                     Colgar
@@ -304,7 +304,7 @@ export function CallDemo() {
               <p className="font-mono text-[0.58rem] uppercase tracking-[0.16em] text-zinc-400 mb-2">
                 Transcripción en tiempo real:
               </p>
-              <div ref={scrollRef} className="h-44 space-y-2 overflow-y-auto pr-1">
+              <div ref={scrollRef} className="demo-scroll h-44 space-y-2 overflow-y-auto pr-1">
                 {lines.length === 0 && (
                   <p className="pt-10 text-center font-mono text-[0.65rem] text-zinc-500">
                     Pulsa «Iniciar llamada» para escuchar y ver la conversación.

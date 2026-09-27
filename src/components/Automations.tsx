@@ -6,7 +6,7 @@ import { ChatbotDemo } from "./demos/ChatbotDemo";
 import { CallDemo } from "./demos/CallDemo";
 import { SupportDemo } from "./demos/SupportDemo";
 import { BookingDemo } from "./demos/BookingDemo";
-import { ArrowRight, Bolt, Chat, Cpu, Inbox, Calendar } from "./icons";
+import { Bolt, Chat, Cpu, Inbox, Calendar } from "./icons";
 
 const iconFor: Record<AutomationId, typeof Chat> = {
   chatbot: Chat,
@@ -37,7 +37,7 @@ export function Automations({
         style={{ animationDelay: "-5s" }}
       />
 
-      <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8">
+      <div className="relative mx-auto max-w-[86rem] px-4 sm:px-8">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
             <SectionEyebrow n="03" label="Automatización con IA" />
@@ -141,6 +141,7 @@ export function Automations({
               </ol>
 
               <div className="glass mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-2xl">
+                {/* Métricas clave de esta automatización */}
                 {current.metrics.map((m) => (
                   <div key={m.label} className="bg-black/40 p-4">
                     <p className="font-display text-xl font-extrabold tracking-tight text-white">
@@ -155,18 +156,18 @@ export function Automations({
             </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="lg:sticky lg:top-28">
+          {/* La demo va antes que la explicación en móvil: se puede probar al instante */}
+          <div className="order-first mx-auto w-full max-w-[26rem] min-w-0 lg:order-none lg:col-span-7 lg:mx-0 lg:max-w-none">
+            <div>
               <div className="mb-3 flex items-center justify-between gap-3">
                 <p className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-zinc-400">
                   Ejemplo interactivo · pruébalo tú
                 </p>
                 <p className="hidden items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-zinc-300 sm:flex">
                   {current.demoLabel}
-                  <ArrowRight className="h-3.5 w-3.5" />
                 </p>
               </div>
-              <div key={`demo-${current.id}`} className="anim-pop">
+              <div key={`demo-${current.id}`} className="anim-pop w-full min-w-0">
                 {current.id === "chatbot" && <ChatbotDemo />}
                 {current.id === "voz" && <CallDemo />}
                 {current.id === "soporte" && <SupportDemo />}

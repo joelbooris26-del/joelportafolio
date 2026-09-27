@@ -41,23 +41,23 @@ export function WhyMe() {
       </div>
 
       <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8">
-        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-12 sm:gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Mensaje principal */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <Reveal>
               <SectionEyebrow n="06" label="Mi compromiso" />
-              <h2 className="mt-6 font-display text-[clamp(2.5rem,6.4vw,5.1rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white">
+              <h2 className="mt-6 font-display text-[clamp(2.35rem,10vw,5.1rem)] font-extrabold leading-[0.94] tracking-[-0.045em] text-white">
                 ¿Y por qué
                 <br />
                 <span className="swash text-zinc-300">elegirme a mí?</span>
               </h2>
 
-              <p className="mt-7 max-w-xl text-[1.08rem] leading-[1.75] text-zinc-300">
+              <p className="mt-6 max-w-xl text-[1rem] leading-[1.7] text-zinc-300 sm:mt-7 sm:text-[1.08rem]">
                 Porque no me limito a entregar una web o una automatización que simplemente
                 funciona. Me implico en entender tu empresa, estudiar tu mercado y construir una
                 solución pensada para ayudarte a atraer, atender y convertir mejor a tus clientes.
               </p>
-              <p className="mt-5 max-w-xl text-[1rem] leading-[1.75] text-zinc-400">
+              <p className="mt-4 max-w-xl text-[0.96rem] leading-[1.7] text-zinc-400 sm:mt-5 sm:text-[1rem]">
                 Cuando llegamos a un acuerdo, asumo el proyecto como una responsabilidad real. Busco
                 ideas, pruebo alternativas y dedico tiempo a pulir cada parte hasta conseguir un
                 resultado del que los dos podamos sentirnos orgullosos.
@@ -77,7 +77,7 @@ export function WhyMe() {
               </figure>
             </Reveal>
 
-            <Reveal delay={160} className="mt-7 flex flex-wrap gap-x-6 gap-y-3">
+            <Reveal delay={160} className="mt-6 flex flex-wrap gap-x-5 gap-y-2.5 sm:mt-7 sm:gap-x-6 sm:gap-y-3">
               {["Comunicación clara", "Decisiones justificadas", "Sin plantillas", "Sin trabajo genérico"].map(
                 (item) => (
                   <span
@@ -93,11 +93,11 @@ export function WhyMe() {
           </div>
 
           {/* Compromisos concretos */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <Reveal delay={80}>
-              <div className="flex items-center gap-2 border-b border-white/10 pb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-zinc-500">
-                <Search className="h-4 w-4 text-white" />
-                Lo que puedes esperar de mi trabajo
+              <div className="flex items-center gap-2 border-b border-white/10 pb-3.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-zinc-500 sm:pb-4 sm:text-[0.62rem]">
+                <Search className="h-4 w-4 shrink-0 text-white" />
+                <span>Lo que puedes esperar de mi trabajo</span>
               </div>
             </Reveal>
 
@@ -106,16 +106,16 @@ export function WhyMe() {
                 <li key={item.n} className="border-b border-white/10">
                   <Reveal
                     delay={120 + i * 70}
-                    className="group relative flex gap-5 py-6 transition-colors duration-400 hover:bg-white/[0.025] sm:gap-7"
+                    className="group relative flex gap-3.5 py-5 transition-colors duration-400 hover:bg-white/[0.025] sm:gap-5 sm:py-6"
                   >
-                    <span className="glass mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl font-mono text-[0.62rem] font-bold text-zinc-300 transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                    <span className="glass grid h-9 w-9 shrink-0 place-items-center rounded-xl font-mono text-[0.6rem] font-bold text-zinc-300 transition-all duration-300 group-hover:bg-white group-hover:text-black sm:mt-0.5 sm:h-10 sm:w-10 sm:text-[0.62rem]">
                       {item.n}
                     </span>
-                    <div>
-                      <h3 className="font-display text-[1.25rem] font-bold tracking-tight text-white">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-[1.1rem] font-bold leading-snug tracking-tight text-white sm:text-[1.25rem]">
                         {item.title}
                       </h3>
-                      <p className="mt-2 max-w-lg text-[0.94rem] leading-relaxed text-zinc-400">
+                      <p className="mt-1.5 text-[0.9rem] leading-relaxed text-zinc-400 sm:mt-2 sm:text-[0.94rem]">
                         {item.text}
                       </p>
                     </div>
@@ -125,23 +125,23 @@ export function WhyMe() {
               ))}
             </ol>
 
-            <Reveal delay={180} className="mt-8">
-              <div className="flex flex-col gap-5 rounded-2xl border border-white/12 bg-white/[0.035] p-6 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="font-display text-[1.15rem] font-bold tracking-tight text-white">
+            <Reveal delay={180} className="mt-7 sm:mt-8">
+              <div className="flex flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.035] p-5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:p-6">
+                <div className="min-w-0">
+                  <p className="font-display text-[1.05rem] font-bold leading-snug tracking-tight text-white sm:text-[1.15rem]">
                     No quiero ser una opción más.
                   </p>
-                  <p className="mt-1 max-w-md text-[0.88rem] leading-relaxed text-zinc-400">
+                  <p className="mt-1 text-[0.85rem] leading-relaxed text-zinc-400 sm:max-w-md sm:text-[0.88rem]">
                     Quiero que el resultado demuestre por qué confiar en alguien implicado marca la
                     diferencia.
                   </p>
                 </div>
                 <a
                   href="#contacto"
-                  className="glass-btn-primary group inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full px-5 py-3 text-sm font-bold"
+                  className="glass-btn-primary group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-full px-5 py-3 text-[0.85rem] font-bold sm:w-auto sm:text-sm"
                 >
                   Cuéntame tu proyecto
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>
             </Reveal>

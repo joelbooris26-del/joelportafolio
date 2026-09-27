@@ -122,7 +122,7 @@ export function Assistant({ onAction }: { onAction: (a: BotAction) => void }) {
       {/* Panel de cristal */}
       <div
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex h-[min(34rem,calc(100%-3rem))] w-[min(24rem,calc(100%-3rem))] flex-col overflow-hidden rounded-3xl border border-white/12 bg-[#0d0d0f] shadow-[0_40px_90px_rgba(0,0,0,0.9)] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "fixed bottom-5 right-5 z-50 flex h-[min(30rem,calc(100%-2.5rem))] w-[min(22rem,calc(100%-2.5rem))] flex-col overflow-hidden rounded-3xl border border-white/12 bg-[#0d0d0f] shadow-[0_40px_90px_rgba(0,0,0,0.9)] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] sm:bottom-6 sm:right-6 sm:h-[min(34rem,calc(100%-3rem))] sm:w-[min(24rem,calc(100%-3rem))]",
           open
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-6 scale-95 opacity-0",

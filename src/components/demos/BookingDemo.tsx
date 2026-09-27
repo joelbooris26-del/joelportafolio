@@ -140,7 +140,7 @@ export function BookingDemo() {
         {/* Contenido: Selector de Servicio + Días + Horas estilo Cal.com */}
         <div className="grid lg:grid-cols-12">
           {/* Columna izquierda: Selección de servicio y formulario */}
-          <div className="p-5 lg:col-span-6 border-b border-white/10 lg:border-b-0 lg:border-r">
+          <div className="border-b border-white/10 p-3.5 sm:p-5 lg:col-span-6 lg:border-b-0 lg:border-r">
             <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-zinc-400 mb-3">
               1. Selecciona el servicio
             </h4>
@@ -212,7 +212,7 @@ export function BookingDemo() {
           </div>
 
           {/* Columna derecha: Vista de Días y Horas estilo Google Calendar */}
-          <div className="p-5 lg:col-span-6 bg-[#121215]">
+          <div className="bg-[#121215] p-3.5 sm:p-5 lg:col-span-6">
             <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-zinc-400 mb-3">
               3. Elige fecha y hora en Google Calendar
             </h4>
@@ -243,7 +243,7 @@ export function BookingDemo() {
             </div>
 
             {/* Parrilla de horas con eventos de calendario */}
-            <div className="mt-4 max-h-64 overflow-y-auto space-y-1.5 pr-1">
+            <div className="demo-scroll mt-4 max-h-[15rem] space-y-1.5 overflow-y-auto pr-1 sm:max-h-64">
               <p className="font-mono text-[0.58rem] text-zinc-500 mb-2">
                 Huecos en tiempo real para el {activeDay.toLocaleDateString("es-ES", { weekday: "long", day: "numeric" })}:
               </p>

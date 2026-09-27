@@ -184,9 +184,9 @@ export function ChatbotDemo() {
       </div>
 
       {/* Dispositivo WhatsApp Business (Diseño idéntico a la app oficial en Dark Mode) */}
-      <div className="mx-auto max-w-xl overflow-hidden rounded-[2.2rem] border border-[#2a2f32] bg-[#0b141a] shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/10">
-        {/* Barra superior de estado del teléfono */}
-        <div className="flex items-center justify-between bg-[#1f2c34] px-6 py-2 text-[0.68rem] font-medium text-zinc-300">
+      <div className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-[1.5rem] border border-[#2a2f32] bg-[#0b141a] shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/10 sm:max-w-xl sm:rounded-[2.2rem]">
+        {/* Barra superior de estado del teléfono (oculta en móvil para ganar altura) */}
+        <div className="hidden items-center justify-between bg-[#1f2c34] px-6 py-2 text-[0.68rem] font-medium text-zinc-300 sm:flex">
           <span>{currentTime()}</span>
           <div className="flex items-center gap-1.5">
             <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ export function ChatbotDemo() {
         </div>
 
         {/* Cabecera oficial de WhatsApp Business */}
-        <div className="flex items-center justify-between bg-[#1f2c34] px-3.5 py-2.5 text-white border-b border-[#2a3942]">
+        <div className="flex items-center justify-between border-b border-[#2a3942] bg-[#1f2c34] px-2.5 py-2 text-white sm:px-3.5 sm:py-2.5">
           <div className="flex items-center gap-2.5">
             <button
               onClick={resetChat}
@@ -216,7 +216,7 @@ export function ChatbotDemo() {
             <div className="relative">
               <div
                 className={cn(
-                  "grid h-10 w-10 place-items-center rounded-full font-display text-sm font-bold text-white shadow-md",
+                  "grid h-9 w-9 place-items-center rounded-full font-display text-[0.8rem] font-bold text-white shadow-md sm:h-10 sm:w-10 sm:text-sm",
                   niche.avatarBg,
                 )}
               >
@@ -270,7 +270,7 @@ export function ChatbotDemo() {
         {/* Zona de mensajes con textura de fondo oficial de WhatsApp */}
         <div
           ref={scrollRef}
-          className="relative flex h-[26rem] flex-col overflow-y-auto px-3.5 py-4"
+          className="demo-scroll relative flex h-[21rem] flex-col overflow-y-auto px-3 py-3.5 sm:h-[26rem] sm:px-3.5"
           style={{
             backgroundColor: "#0b141a",
             backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)`,
@@ -350,7 +350,7 @@ export function ChatbotDemo() {
             e.preventDefault();
             send(input);
           }}
-          className="flex items-center gap-2 bg-[#202c33] px-3 py-2.5"
+          className="flex items-center gap-1.5 bg-[#202c33] px-2.5 py-2 sm:gap-2 sm:px-3 sm:py-2.5"
         >
           {/* Emojis & Clip */}
           <div className="flex items-center gap-2 text-[#8696a0]">
