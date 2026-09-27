@@ -75,7 +75,7 @@ export const bioParagraphs = [
   "Soy de La Línea de la Concepción, en Cádiz, donde el mar y el Peñón se ven desde cualquier azotea. Crecí rodeado de videojuegos, ordenadores y consolas: en mi casa la tecnología nunca fue un lujo, fue un lenguaje. Y mientras otros jugaban, yo me preguntaba cómo estaba hecho todo aquello por dentro.",
   "Con 14 años empecé a responder esa pregunta por mi cuenta. Sin cursos, sin atajos: documentación, foros y muchas noches de prueba y error hasta levantar mi primera página web. Desde entonces no he dejado de construir —y de romper— cosas en internet.",
   "Luego llegaron las automatizaciones y los agentes con inteligencia artificial, y entendí que ahí estaba el siguiente salto. Me lancé de cabeza: chatbots, agentes de voz y flujos que conectan aplicaciones y hacen solos el trabajo repetitivo que antes se comía las tardes de cualquier pequeño negocio.",
-  "Hoy combino las dos piezas. Webs rápidas, cuidadas y totalmente personalizadas —nada de plantillas— que además trabajan solas: responden a tus clientes, gestionan tus reservas o tus citas, y te avisan solo cuando hace falta una persona de verdad. Y lo mismo me da que sea un restaurante, una clínica, una tienda o un taller: el método no cambia, lo que cambia es lo que tu negocio necesita.",
+  "Hoy combino las dos piezas. Webs rápidas, cuidadas y totalmente personalizadas —nada de plantillas— que además trabajan solas: responden a tus clientes, gestionan tus reservas o tus citas, y te avisan solo cuando hace falta una persona de verdad. Trabajo con cualquier tipo de negocio, ya sea un restaurante, una clínica, una tienda o un taller: el método es el mismo; lo que se adapta es la solución a lo que tu empresa necesita.",
 ];
 
 export const howIWork = [
