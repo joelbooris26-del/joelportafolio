@@ -162,7 +162,7 @@ export function SupportDemo() {
                   className={cn(
                     "shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.56rem] uppercase tracking-wider transition-all",
                     activeCanal === c
-                      ? "bg-white font-bold text-black"
+                      ? "bg-accent font-bold text-white"
                       : "glass text-zinc-400 hover:text-white",
                   )}
                 >

@@ -113,7 +113,7 @@ export function ImpactStats() {
     <section className="noise-layer relative overflow-hidden border-y border-white/10 bg-zinc-950 py-20 sm:py-24">
       <div className="pointer-events-none absolute inset-0">
         <div className="bg-grid absolute inset-0 opacity-35" />
-        <div className="anim-float absolute left-1/2 top-0 h-[26rem] w-[26rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_65%)] blur-3xl" />
+        <div className="anim-float absolute left-1/2 top-0 h-[26rem] w-[26rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(59,123,246,0.2),transparent_65%)] blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8">
@@ -139,7 +139,7 @@ export function ImpactStats() {
             <Reveal key={s.label} delay={i * 90}>
               <div className="group h-full bg-black/60 p-7 backdrop-blur-xl transition-colors duration-400 hover:bg-white/[0.05]">
                 <s.icon className="h-6 w-6 text-white transition-transform duration-400 group-hover:-translate-y-0.5" />
-                <p className="mt-5 font-display text-[clamp(2.6rem,5vw,3.4rem)] font-extrabold leading-none tracking-tight text-white">
+                <p className="mt-5 font-display text-[clamp(2.6rem,5vw,3.4rem)] font-extrabold leading-none tracking-tight text-accent-soft">
                   <StatNumber
                     prefix={s.prefix}
                     target={s.target}
@@ -161,7 +161,7 @@ export function ImpactStats() {
           <div className="glass-card grid gap-x-8 gap-y-4 rounded-2xl p-6 sm:grid-cols-2 sm:p-8">
             {promises.map((p) => (
               <div key={p} className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-black">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent text-white">
                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 </span>
                 <p className="text-[0.95rem] leading-snug text-zinc-200">{p}</p>

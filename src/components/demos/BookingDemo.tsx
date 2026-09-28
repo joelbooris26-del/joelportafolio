@@ -99,7 +99,7 @@ export function BookingDemo() {
                   className={cn(
                     "shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] transition-all",
                     on
-                      ? "bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                      ? "bg-accent text-white font-bold shadow-[0_0_18px_rgba(59,123,246,0.5)]"
                       : "glass text-zinc-400 hover:text-white",
                   )}
                 >
@@ -156,7 +156,7 @@ export function BookingDemo() {
                   className={cn(
                     "w-full flex items-center justify-between p-3 rounded-xl text-left transition-all",
                     selectedServiceId === s.id
-                      ? "bg-white text-black font-semibold shadow-md"
+                      ? "bg-accent text-white font-semibold shadow-md"
                       : "glass text-zinc-300 hover:bg-white/[0.08]",
                   )}
                 >
@@ -230,7 +230,7 @@ export function BookingDemo() {
                     }}
                     className={cn(
                       "flex flex-col items-center p-2 rounded-xl text-center transition-all",
-                      isSelected ? "bg-white text-black font-bold shadow-md" : "glass text-zinc-400 hover:text-white",
+                      isSelected ? "bg-accent text-white font-bold shadow-md" : "glass text-zinc-400 hover:text-white",
                     )}
                   >
                     <span className="font-mono text-[0.55rem] uppercase">
@@ -275,7 +275,7 @@ export function BookingDemo() {
                     className={cn(
                       "w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left",
                       isSelected
-                        ? "bg-white text-black font-bold shadow-md"
+                        ? "bg-accent text-white font-bold shadow-md"
                         : "glass text-zinc-200 hover:bg-white/10",
                     )}
                   >

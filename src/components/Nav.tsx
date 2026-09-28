@@ -93,8 +93,8 @@ export function Nav() {
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="glass hidden items-center gap-2 rounded-full px-3.5 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-zinc-300 md:inline-flex">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success" />
               </span>
               {getAge()} años · disponible
             </span>
@@ -115,7 +115,7 @@ export function Nav() {
         </div>
         <div className="h-px w-full bg-white/5">
           <div
-            className="h-px bg-gradient-to-r from-transparent via-white/80 to-transparent transition-[width] duration-150"
+            className="h-px bg-gradient-to-r from-transparent via-accent to-accent-soft transition-[width] duration-150"
             style={{ width: `${progress * 100}%` }}
           />
         </div>

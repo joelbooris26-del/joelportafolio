@@ -108,7 +108,7 @@ export function WhyMe() {
                     delay={120 + i * 70}
                     className="group relative flex gap-3.5 py-5 transition-colors duration-400 hover:bg-white/[0.025] sm:gap-5 sm:py-6"
                   >
-                    <span className="glass grid h-9 w-9 shrink-0 place-items-center rounded-xl font-mono text-[0.6rem] font-bold text-zinc-300 transition-all duration-300 group-hover:bg-white group-hover:text-black sm:mt-0.5 sm:h-10 sm:w-10 sm:text-[0.62rem]">
+                    <span className="glass grid h-9 w-9 shrink-0 place-items-center rounded-xl font-mono text-[0.6rem] font-bold text-zinc-300 transition-all duration-300 group-hover:bg-accent group-hover:text-white sm:mt-0.5 sm:h-10 sm:w-10 sm:text-[0.62rem]">
                       {item.n}
                     </span>
                     <div className="min-w-0 flex-1">

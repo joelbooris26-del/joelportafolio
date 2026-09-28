@@ -126,7 +126,7 @@ export function CallDemo() {
                   className={cn(
                     "shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] transition-all",
                     on
-                      ? "bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                      ? "bg-accent text-white font-bold shadow-[0_0_18px_rgba(59,123,246,0.5)]"
                       : "glass text-zinc-400 hover:text-white",
                   )}
                 >

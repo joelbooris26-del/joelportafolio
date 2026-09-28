@@ -123,7 +123,7 @@ export function Automations({
                 {current.parts.map((p, i) => (
                   <li key={p.title} className="group relative flex gap-4 pb-6 last:pb-0">
                     <div className="relative flex flex-col items-center">
-                      <span className="glass grid h-8 w-8 shrink-0 place-items-center rounded-xl font-mono text-[0.62rem] font-bold text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                      <span className="glass grid h-8 w-8 shrink-0 place-items-center rounded-xl font-mono text-[0.62rem] font-bold text-white transition-all duration-300 group-hover:bg-accent group-hover:text-white">
                         {i + 1}
                       </span>
                       {i < current.parts.length - 1 && (

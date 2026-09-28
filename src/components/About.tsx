@@ -155,7 +155,7 @@ export function About() {
 export function SectionEyebrow({ n = "01", label = "Sobre mí" }: { n?: string; label?: string }) {
   return (
     <div className="glass inline-flex items-center gap-3 rounded-full px-3.5 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-zinc-300">
-      <span className="text-white font-bold">{n}</span>
+      <span className="font-bold text-accent-soft">{n}</span>
       <span className="h-3 w-px bg-white/20" />
       {label}
     </div>

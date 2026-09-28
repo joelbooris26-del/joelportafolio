@@ -7,21 +7,29 @@
   --font-chef: "Fraunces", ui-serif, Georgia, serif;
   --font-rbody: "Karla", "IBM Plex Sans", sans-serif;
 
-  /* Escala de negros, grises y blancos */
-  --color-black: #000000;
-  --color-zinc-950: #080808;
-  --color-zinc-900: #101010;
-  --color-zinc-850: #141414;
-  --color-zinc-800: #1a1a1a;
-  --color-zinc-750: #222222;
-  --color-zinc-700: #2d2d2d;
-  --color-zinc-600: #404040;
-  --color-zinc-500: #666666;
-  --color-zinc-400: #8e8e8e;
-  --color-zinc-300: #b5b5b5;
-  --color-zinc-200: #dcdcdc;
-  --color-zinc-100: #f0f0f0;
+  /* Base azul noche: sobria, profesional, con más profundidad que el negro puro */
+  --color-black: #05080f;
+  --color-zinc-950: #080d17;
+  --color-zinc-900: #0c121f;
+  --color-zinc-850: #101828;
+  --color-zinc-800: #151e31;
+  --color-zinc-750: #1b263c;
+  --color-zinc-700: #24314a;
+  --color-zinc-600: #35456180;
+  --color-zinc-500: #64748b;
+  --color-zinc-400: #94a3b8;
+  --color-zinc-300: #c2cddc;
+  --color-zinc-200: #dde5ef;
+  --color-zinc-100: #eef3f9;
   --color-white: #ffffff;
+
+  /* Acento corporativo: azul de confianza, visible pero nada estridente */
+  --color-accent: #3b7bf6;
+  --color-accent-soft: #6598ff;
+  --color-accent-deep: #1e50c8;
+
+  /* Verde sobrio, solo para señales de estado (disponible, resuelto) */
+  --color-success: #2fbf7f;
 }
 
 @layer base {
@@ -29,18 +37,18 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
     -webkit-tap-highlight-color: transparent;
-    background-color: #000000;
+    background-color: #05080f;
   }
   body {
-    background-color: #000000;
-    color: #e5e5e5;
+    background-color: #05080f;
+    color: #dbe3ee;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
   ::selection {
-    background: rgba(255, 255, 255, 0.9);
-    color: #000000;
+    background: rgba(59, 123, 246, 0.85);
+    color: #ffffff;
   }
   h1,
   h2,
@@ -51,14 +59,14 @@
   }
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-color: rgba(99, 140, 220, 0.35) transparent;
   }
   *::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(99, 140, 220, 0.3);
     border-radius: 99px;
   }
   *::-webkit-scrollbar-track {
@@ -68,55 +76,55 @@
 
 /* ── Estilos de cristal (Glassmorphism) ───────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(130, 170, 255, 0.035);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(150, 185, 255, 0.12);
   box-shadow:
-    0 20px 50px -20px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    0 20px 50px -20px rgba(2, 6, 16, 0.9),
+    inset 0 1px 0 0 rgba(190, 215, 255, 0.1);
 }
 
 .glass-card {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.015) 100%
+    rgba(130, 170, 255, 0.06) 0%,
+    rgba(130, 170, 255, 0.015) 100%
   );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(150, 185, 255, 0.14);
   box-shadow:
-    0 30px 60px -25px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    0 30px 60px -25px rgba(2, 6, 16, 0.95),
+    inset 0 1px 0 0 rgba(190, 215, 255, 0.14);
 }
 
 .glass-btn {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.03) 100%
+    rgba(150, 185, 255, 0.11) 0%,
+    rgba(150, 185, 255, 0.035) 100%
   );
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(150, 185, 255, 0.2);
   box-shadow:
-    0 8px 24px -6px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+    0 8px 24px -6px rgba(2, 6, 16, 0.6),
+    inset 0 1px 0 0 rgba(200, 220, 255, 0.24);
   color: #ffffff;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .glass-btn:hover {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.07) 100%
+    rgba(59, 123, 246, 0.24) 0%,
+    rgba(59, 123, 246, 0.08) 100%
   );
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(101, 152, 255, 0.55);
   box-shadow:
-    0 12px 30px -6px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 255, 255, 0.12),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    0 12px 30px -6px rgba(2, 6, 16, 0.8),
+    0 0 22px rgba(59, 123, 246, 0.25),
+    inset 0 1px 0 0 rgba(200, 220, 255, 0.4);
   transform: translateY(-1px);
 }
 .glass-btn:active {
@@ -124,72 +132,79 @@
 }
 
 .glass-btn-primary {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(235, 235, 235, 0.85) 100%
-  );
+  background: linear-gradient(180deg, #4a86f7 0%, #2c62d9 100%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(140, 180, 255, 0.55);
   box-shadow:
-    0 10px 30px -5px rgba(255, 255, 255, 0.25),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1);
-  color: #000000;
+    0 10px 30px -6px rgba(59, 123, 246, 0.45),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+  color: #ffffff;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* El texto y los iconos del botón principal siempre en blanco, aunque el
+   componente traiga una clase de color propia. */
+.glass-btn-primary,
+.glass-btn-primary * {
+  color: #ffffff;
+}
 .glass-btn-primary:hover {
-  background: #ffffff;
+  background: linear-gradient(180deg, #5b93ff 0%, #3a71e8 100%);
   box-shadow:
-    0 12px 35px -5px rgba(255, 255, 255, 0.45),
-    0 0 30px rgba(255, 255, 255, 0.3),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    0 14px 38px -6px rgba(59, 123, 246, 0.6),
+    0 0 30px rgba(59, 123, 246, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45);
   transform: translateY(-1px);
 }
 .glass-btn-primary:active {
   transform: scale(0.97);
 }
+.glass-btn-primary:disabled {
+  background: linear-gradient(180deg, #2b3852 0%, #212c42 100%);
+  border-color: rgba(150, 185, 255, 0.15);
+  box-shadow: none;
+}
 
 .glass-input {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(130, 170, 255, 0.04);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(150, 185, 255, 0.16);
+  box-shadow: inset 0 1px 2px rgba(2, 6, 16, 0.5);
   color: #ffffff;
   transition: all 0.3s ease;
 }
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(59, 123, 246, 0.08);
+  border-color: rgba(101, 152, 255, 0.6);
   box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.1),
-    inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    0 0 0 2px rgba(59, 123, 246, 0.22),
+    inset 0 1px 2px rgba(2, 6, 16, 0.5);
 }
 
 .glass-pill-active {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.22) 0%,
-    rgba(255, 255, 255, 0.1) 100%
+    rgba(59, 123, 246, 0.35) 0%,
+    rgba(59, 123, 246, 0.15) 100%
   );
-  border-color: rgba(255, 255, 255, 0.45);
+  border-color: rgba(101, 152, 255, 0.6);
   box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.15),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+    0 0 20px rgba(59, 123, 246, 0.28),
+    inset 0 1px 0 0 rgba(200, 220, 255, 0.3);
   color: #ffffff;
 }
 
 /* ── Ambient textures ───────────────────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(130, 170, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(130, 170, 255, 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 .bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(130, 170, 255, 0.14) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 .noise-layer::after {
@@ -333,7 +348,7 @@
 }
 
 .swash {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+  background-image: linear-gradient(to right, #4a86f7, rgba(74, 134, 247, 0.15));
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 2px;

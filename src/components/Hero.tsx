@@ -40,9 +40,9 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-black" />
         <div className="bg-grid mask-fade-b absolute inset-0 opacity-60" />
-        <div className="anim-float absolute -top-40 left-1/4 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08),transparent_65%)] blur-3xl" />
+        <div className="anim-float absolute -top-40 left-1/4 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(59,123,246,0.22),transparent_65%)] blur-3xl" />
         <div
-          className="anim-float absolute -right-32 top-32 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_65%)] blur-3xl"
+          className="anim-float absolute -right-32 top-32 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(101,152,255,0.14),transparent_65%)] blur-3xl"
           style={{ animationDelay: "-4s" }}
         />
       </div>
