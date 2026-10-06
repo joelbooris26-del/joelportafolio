@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Close, MenuIcon, prefersReducedMotion } from "./ui";
 
@@ -43,26 +43,70 @@ const links = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
+  const bar = useRef<HTMLDivElement>(null);
 
+  /* Barra de progreso y fondo del menú.
+     Antes cada evento de scroll volvía a pintar el menú entero y medía la posición de todas las
+     secciones (lectura de layout): con el dedo eso saturaba el hilo principal y la animación de la
+     esfera se paraba. Ahora: como máximo una vez por fotograma, sin leer layout y sin repintar React
+     (la barra se mueve directamente; el estado solo cambia al cruzar el umbral). */
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 40);
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(h > 0 ? Math.min(1, y / h) : 0);
-      let cur = "";
-      for (const l of links) {
-        const el = document.getElementById(l.id);
-        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = l.id;
-      }
-      setActive(cur);
+    let raf = 0;
+    let max = 1;
+    let wasScrolled = false;
+    const measure = () => {
+      max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     };
-    onScroll();
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      if (bar.current) bar.current.style.transform = `scaleX(${Math.min(1, y / max)})`;
+      const s = y > 40;
+      if (s !== wasScrolled) {
+        wasScrolled = s;
+        setScrolled(s);
+      }
+      if (y < 120) setActive("");
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    measure();
+    update();
+    const ro = new ResizeObserver(measure); // el alto total solo cambia cuando cambia el contenido
+    ro.observe(document.body);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", measure);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  /* Sección activa: la que cruza una franja fina a ~40 % de la altura de la pantalla.
+     Lo avisa el navegador (IntersectionObserver): no hay que medir nada al hacer scroll. */
+  useEffect(() => {
+    const live = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) live.add(e.target.id);
+          else live.delete(e.target.id);
+        }
+        const cur = [...links].reverse().find((l) => live.has(l.id));
+        if (cur) setActive(cur.id);
+      },
+      { rootMargin: "-40% 0px -59% 0px" },
+    );
+    for (const l of links) {
+      const el = document.getElementById(l.id);
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -77,21 +121,22 @@ export function Nav() {
       {/* Barra de progreso */}
       <div className="fixed inset-x-0 top-0 z-[90] h-[2px] bg-transparent">
         <div
+          ref={bar}
           className="h-full origin-left bg-lime shadow-[0_0_14px_rgba(200,255,62,0.9)]"
-          style={{ transform: `scaleX(${progress})` }}
+          style={{ transform: "scaleX(0)" }}
         />
       </div>
 
       <header
         data-site-nav
         className={cn(
-          "fixed inset-x-0 top-0 z-[80] transition-all duration-500",
+          "fixed inset-x-0 top-0 z-[80] transition-[padding] duration-300",
           scrolled ? "py-3" : "py-5",
         )}
       >
         <div className="mx-auto flex max-w-[84rem] items-center justify-between gap-4 px-5 sm:px-8">
           <a href="#top" className="group flex items-center gap-3" data-hover>
-            <span className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] font-display text-[0.8rem] font-extrabold text-white backdrop-blur-xl transition-colors group-hover:border-lime/70 group-hover:text-lime">
+            <span className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] font-display text-[0.8rem] font-extrabold text-white transition-colors group-hover:border-lime/70 group-hover:text-lime">
               JM
             </span>
             <span className="hidden font-mono text-[0.64rem] uppercase leading-tight tracking-[0.22em] text-mute sm:block">
@@ -103,7 +148,7 @@ export function Nav() {
 
           <nav
             className={cn(
-              "hidden items-center gap-1 rounded-full border border-white/10 p-1.5 backdrop-blur-xl transition-colors lg:flex",
+              "hidden items-center gap-1 rounded-full border border-white/10 p-1.5 transition-colors lg:flex",
               scrolled ? "bg-ink/70" : "bg-white/[0.03]",
             )}
           >
@@ -132,7 +177,7 @@ export function Nav() {
             <button
               aria-label="Abrir menú"
               onClick={() => setOpen(true)}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] text-white backdrop-blur-xl lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] text-white lg:hidden"
             >
               <MenuIcon className="h-5 w-5" />
             </button>
@@ -149,7 +194,7 @@ export function Nav() {
       >
         <div
           className={cn(
-            "absolute inset-0 bg-ink/90 backdrop-blur-xl transition-opacity duration-300",
+            "absolute inset-0 bg-ink/95 transition-opacity duration-300",
             open ? "opacity-100" : "opacity-0",
           )}
           onClick={() => setOpen(false)}

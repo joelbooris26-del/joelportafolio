@@ -56,7 +56,9 @@ function glowSprite(r: number, g: number, b: number) {
   return c;
 }
 
-const FRAME_MS = 1000 / 45; // máximo ~45 fotogramas por segundo: se ve igual de fluido y gasta menos
+// Máximo de fotogramas por segundo: ~45 en ordenador y ~30 en el móvil. Se ve igual de fluido y
+// el teléfono hace la mitad de trabajo.
+const FRAME_MS = typeof window !== "undefined" && window.innerWidth < 760 ? 1000 / 30 : 1000 / 45;
 
 /**
  * Esfera 3D de puntos que gira, con meridianos, anillos y satélites.
@@ -73,7 +75,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
     if (!ctx) return;
 
     const small = window.innerWidth < 760;
-    const pts = fibonacciSphere(small ? 400 : 700);
+    const pts = fibonacciSphere(small ? 300 : 700);
     const markers = Array.from({ length: 12 }, (_, i) => pts[Math.floor((i + 0.5) * (pts.length / 12))]);
     const meridians: V3[][] = [0, 1, 2].map((m) => {
       const lon = (m * Math.PI) / 3;
@@ -116,7 +118,8 @@ export function GlobeCanvas({ className }: { className?: string }) {
       if (!parent) return;
       w = parent.clientWidth;
       h = parent.clientHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // en el móvil se dibuja a resolución normal (no a la de pantalla retina): 2-3 veces menos píxeles
+      dpr = small ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;

@@ -57,6 +57,12 @@
   *::-webkit-scrollbar-track {
     background: transparent;
   }
+  /* Una sola columna por defecto, pero que SÍ pueda encogerse. Sin esto, la columna implícita de
+     una cuadrícula crece hasta el ancho de su contenido más ancho (un email largo, una fila de
+     botones…) y en el móvil la sección se sale de la pantalla y se corta por la derecha. */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* ── Cursor propio (solo con ratón) ─────────────────────────────── */
@@ -122,14 +128,7 @@
   background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
   background-size: 22px 22px;
 }
-.noise::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-}
+/* (La textura de «ruido» se quitó: una capa más a pintar en cada sección, casi invisible.) */
 .scanlines::before {
   content: "";
   position: absolute;
@@ -271,20 +270,37 @@
 }
 
 /* ── Aparición al hacer scroll ───────────────────────────────────── */
+/* Sin desenfoque: solo un fundido suave con un pequeño desplazamiento (barato de pintar) */
 .rv {
   opacity: 0;
-  transform: translateY(28px);
-  filter: blur(6px);
+  transform: translateY(18px);
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--d, 0ms);
 }
 .rv.in {
   opacity: 1;
   transform: none;
-  filter: none;
+}
+/* En pantallas táctiles/pequeñas todo aparece de golpe: sin efectos de entrada al hacer scroll,
+   sin esperas y sin trabajo extra para el teléfono. */
+@media (max-width: 1023px) {
+  .rv,
+  .rv.in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .drift {
+    animation: none;
+  }
+  /* Las máscaras de degradado obligan al móvil a pintar capas extra: fuera en pantallas pequeñas */
+  .fade-b,
+  .fade-x {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 /* ── Keyframes ───────────────────────────────────────────────────── */

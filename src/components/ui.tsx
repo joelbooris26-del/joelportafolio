@@ -37,7 +37,9 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
+    // En pantallas pequeñas el CSS ya lo muestra todo de golpe: no hace falta observar nada
+    // (son unas 80 secciones menos que vigilar en el teléfono).
+    if (typeof IntersectionObserver === "undefined" || window.matchMedia("(max-width: 1023px)").matches) {
       setSeen(true);
       return;
     }

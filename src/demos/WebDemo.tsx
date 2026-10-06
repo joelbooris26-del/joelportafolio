@@ -396,8 +396,8 @@ export default function WebDemo({ onContact }: DemoProps) {
             <header className="relative overflow-hidden px-4 py-14 sm:px-8 sm:py-20">
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-30 blur-3xl"
-                style={{ background: "var(--a)" }}
+                className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-40"
+                style={{ background: "radial-gradient(circle, var(--a), transparent 68%)" }}
               />
               <div className="relative max-w-2xl">
                 <p className="text-[0.74rem] font-semibold uppercase tracking-[0.22em] [color:var(--at)]">{sector.name}</p>

@@ -140,18 +140,23 @@ function SkillSphere() {
       });
     };
 
+    // En el móvil se repinta a 30 fotogramas por segundo (a 45 en ordenador): se ve igual de fluido
+    // y el teléfono tiene que mover la mitad de elementos por segundo.
+    const minMs = window.innerWidth < 760 ? 1000 / 30 : 1000 / 45;
     const loop = (now: number) => {
-      const dt = Math.min(48, now - last);
+      raf = requestAnimationFrame(loop);
+      const elapsed = now - last;
+      if (elapsed < minMs - 2) return;
+      const dt = Math.min(48, elapsed);
       last = now;
       if (visible && !dragging && !demoOpen()) {
         // la velocidad vuelve poco a poco al giro tranquilo (o al del cursor)
-        wx += (twx - wx) * 0.045;
-        wy += (twy - wy) * 0.045;
+        wx += (twx - wx) * 0.06;
+        wy += (twy - wy) * 0.06;
         rx += wx * dt;
         ry += wy * dt;
         render();
       }
-      raf = requestAnimationFrame(loop);
     };
 
     render();
@@ -189,7 +194,7 @@ function SkillSphere() {
           className="pointer-events-none absolute inset-[10%] rounded-full"
           style={{ background: "radial-gradient(circle, rgba(200,255,62,0.10), transparent 62%)" }}
         />
-        <div className="pointer-events-none absolute inset-[30%] rounded-full bg-lime/[0.05] blur-2xl" />
+        <div className="pointer-events-none absolute inset-[22%] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.08),transparent_70%)]" />
 
         {sphereWords.map((w, i) => (
           <span

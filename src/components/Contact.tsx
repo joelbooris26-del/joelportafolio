@@ -107,12 +107,12 @@ export function Contact() {
     <>
       <section id="contacto" className="noise relative overflow-hidden bg-panel/40 py-24 sm:py-32">
         <div className="grid-bg fade-b pointer-events-none absolute inset-0 opacity-50" />
-        <div className="drift pointer-events-none absolute -right-24 top-0 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.10),transparent_65%)] blur-3xl" />
+        <div className="drift pointer-events-none absolute -right-24 top-0 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.10),transparent_65%)]" />
 
         <div className="relative mx-auto max-w-[84rem] px-5 sm:px-8">
           <Reveal>
             <Eyebrow n="06" label="Contacto" />
-            <h2 className="mt-6 font-display text-[clamp(2.6rem,9vw,7.6rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-white">
+            <h2 className="mt-6 font-display text-[clamp(2.1rem,8.4vw,7.6rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-white">
               ¿Hacemos algo
               <br />
               <span className="text-gradient">juntos?</span>
@@ -139,7 +139,7 @@ export function Contact() {
                       <span className="block font-mono text-[0.6rem] uppercase tracking-[0.22em] text-mute">
                         Email · toca para copiar
                       </span>
-                      <span className="mt-1 block truncate font-display text-[1.05rem] font-semibold tracking-tight text-white sm:text-[1.25rem]">
+                      <span className="mt-1 block break-all font-display text-[1.05rem] font-semibold tracking-tight text-white sm:text-[1.25rem]">
                         {profile.email}
                       </span>
                     </span>

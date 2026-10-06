@@ -7,27 +7,42 @@ export function Story() {
   const listRef = useRef<HTMLOListElement>(null);
   const [p, setP] = useState(0);
 
-  // El progreso de la línea sigue al scroll
+  // El progreso de la línea sigue al scroll, pero SOLO mientras la línea de tiempo está en pantalla:
+  // el resto del tiempo no hay ningún trabajo ligado al scroll en esta sección.
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
     let raf = 0;
+    let listening = false;
     const update = () => {
       raf = 0;
       const r = el.getBoundingClientRect();
       const mid = window.innerHeight * 0.58;
       const v = Math.min(1, Math.max(0, (mid - r.top) / r.height));
-      setP((prev) => (Math.abs(prev - v) > 0.003 ? v : prev));
+      // pasos de 1 %: evita repintar la sección en cada píxel que se mueve el scroll
+      setP((prev) => (Math.abs(prev - v) >= 0.01 || v === 0 || v === 1 ? v : prev));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
+    const attach = () => {
+      if (listening) return;
+      listening = true;
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      update();
+    };
+    const detach = () => {
+      if (!listening) return;
+      listening = false;
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+    };
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? attach() : detach()), { rootMargin: "160px 0px" });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      detach();
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);

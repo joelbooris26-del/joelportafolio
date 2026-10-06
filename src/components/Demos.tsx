@@ -26,7 +26,7 @@ export function Demos({ onOpen, onContact }: { onOpen: (id: DemoId) => void; onC
   return (
     <section id="demos" className="noise relative overflow-x-clip bg-panel/40 py-24 sm:py-32">
       <div className="dots-bg pointer-events-none absolute inset-0 opacity-25" />
-      <div className="drift pointer-events-none absolute -left-24 top-1/4 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.09),transparent_65%)] blur-3xl" />
+      <div className="drift pointer-events-none absolute -left-24 top-1/4 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.09),transparent_65%)]" />
 
       <div className="relative mx-auto max-w-[84rem] px-5 sm:px-8">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">

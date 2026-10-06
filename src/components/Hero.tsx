@@ -75,7 +75,7 @@ function HeroTerminal() {
 
   return (
     <div
-      className="w-full max-w-[24rem] overflow-hidden rounded-2xl border border-white/10 bg-ink/70 font-mono text-[0.72rem] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+      className="w-full max-w-[24rem] overflow-hidden rounded-2xl border border-white/10 bg-ink/90 font-mono text-[0.72rem] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)]"
       aria-label="Estado del portafolio"
     >
       <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
@@ -111,7 +111,7 @@ export function Hero() {
     <section id="top" className="noise scanlines relative min-h-[100svh] overflow-hidden">
       <div className="absolute inset-0">
         <div className="grid-bg fade-b absolute inset-0 opacity-70" />
-        <div className="drift absolute -left-32 top-10 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.10),transparent_65%)] blur-3xl" />
+        <div className="drift absolute -left-32 top-10 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(200,255,62,0.10),transparent_65%)]" />
         <GlobeCanvas className="absolute inset-0 h-full w-full" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
       </div>
@@ -119,7 +119,7 @@ export function Hero() {
       <div className="relative mx-auto flex min-h-[100svh] max-w-[84rem] flex-col justify-between px-5 pb-8 pt-28 sm:px-8 sm:pt-32">
         {/* HUD superior */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.64rem] uppercase tracking-[0.22em] text-mute">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-soft backdrop-blur-xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-soft">
             <span className="relative flex h-2 w-2">
               <span className="pulse-ring absolute inset-0 text-lime" />
               <span className="h-2 w-2 rounded-full bg-lime" />

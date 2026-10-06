@@ -110,7 +110,6 @@ export function Projects({ onOpenDemo }: { onOpenDemo: (id: DemoId) => void }) {
           const front = (Math.cos(theta) + 1) / 2; // 1 delante · 0 detrás
           const f = Math.pow(front, 2.2);
           el.style.opacity = String(0.14 + 0.86 * f);
-          el.style.filter = `brightness(${0.45 + 0.55 * f}) saturate(${0.5 + 0.5 * f})`;
           el.style.pointerEvents = front > 0.55 ? "auto" : "none";
         }
 
@@ -192,7 +191,7 @@ export function Projects({ onOpenDemo }: { onOpenDemo: (id: DemoId) => void }) {
     <section id="proyectos" className="relative overflow-x-clip py-24 sm:py-32" style={accentStyle}>
       <div className="dots-bg pointer-events-none absolute inset-0 opacity-25" />
       <div
-        className="drift pointer-events-none absolute left-1/2 top-1/3 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full blur-3xl transition-colors duration-700"
+        className="drift pointer-events-none absolute left-1/2 top-1/3 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full transition-colors duration-700"
         style={{ background: `radial-gradient(circle, ${project.accent}22, transparent 65%)` }}
       />
 
@@ -258,8 +257,8 @@ export function Projects({ onOpenDemo }: { onOpenDemo: (id: DemoId) => void }) {
                   style={{ borderColor: `${p.accent}55` }}
                 >
                   <div
-                    className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full blur-3xl"
-                    style={{ background: `${p.accent}2a` }}
+                    className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full"
+                    style={{ background: `radial-gradient(circle, ${p.accent}30, transparent 70%)` }}
                   />
                   <div className="relative flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.2em] text-mute">
                     <span style={{ color: p.accent }}>
