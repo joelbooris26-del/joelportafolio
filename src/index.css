@@ -85,24 +85,23 @@
   height: 38px;
   margin: -19px 0 0 -19px;
   border: 1px solid rgba(200, 255, 62, 0.55);
+  /* El tamaño cambia con `scale` (GPU), no con width/height (que obligarían a recalcular el diseño) */
+  scale: 1;
   transition:
-    width 0.25s ease,
-    height 0.25s ease,
-    margin 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease;
+    scale 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.22s ease,
+    border-color 0.22s ease;
 }
 .cursor-ring.is-hover {
-  width: 66px;
-  height: 66px;
-  margin: -33px 0 0 -33px;
-  background: rgba(200, 255, 62, 0.1);
+  scale: 1.75;
+  background-color: rgba(200, 255, 62, 0.1);
   border-color: rgba(200, 255, 62, 0.9);
 }
 .cursor-ring.is-down {
-  width: 28px;
-  height: 28px;
-  margin: -14px 0 0 -14px;
+  scale: 0.78;
+}
+.cursor-hidden {
+  opacity: 0;
 }
 
 /* ── Texturas ────────────────────────────────────────────────────── */
@@ -438,17 +437,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  .rv {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
+/* Animaciones pausadas: solo si el visitante lo pide con el botón de pausa del menú */
+html.no-motion *,
+html.no-motion *::before,
+html.no-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+html.no-motion .rv {
+  opacity: 1;
+  transform: none;
+  filter: none;
 }

@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Joel — Joaquin Merizalde Fernandez. Webs a medida, agentes de IA, automatizaciones y apps móviles desde La Línea de la Concepción (Cádiz). Portafolio con mis proyectos y mi historia."
+      content="Joel — Joaquin Merizalde Fernandez. Webs a medida con IA, chatbots, agentes de llamadas y automatizaciones desde La Línea de la Concepción (Cádiz). Portafolio con mis proyectos y mi historia."
     />
     <meta name="theme-color" content="#06080a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>Joel · Webs, IA y apps</title>
+    <title>Joel · Portafolio</title>
     <script>
       /* Entrar siempre por el principio de la página (respeta anclas #proyectos…) */
       (function () {
         try {
+          if (localStorage.getItem("jm:motion") === "off") document.documentElement.classList.add("no-motion");
           if ("scrollRestoration" in history) history.scrollRestoration = "manual";
           if (!location.hash) window.scrollTo(0, 0);
         } catch (e) {}

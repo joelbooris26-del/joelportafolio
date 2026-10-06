@@ -9,8 +9,13 @@ import {
 } from "react";
 import { cn } from "@/utils/cn";
 
+/**
+ * ¿Están pausadas las animaciones? Solo lo están cuando el visitante pulsa el botón de
+ * pausa del menú (clase `no-motion` en <html>). No se lee el ajuste «reducir movimiento»
+ * del sistema: el portafolio está pensado para verse en movimiento.
+ */
 export const prefersReducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof document !== "undefined" && document.documentElement.classList.contains("no-motion");
 
 /** ¿Hay una demo abierta? Mientras lo esté, los bucles de animación de la página se paran. */
 export const demoOpen = () =>
@@ -144,15 +149,6 @@ export function ScrambleText({
   const idx = useRef(0);
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      let i = 0;
-      const id = window.setInterval(() => {
-        i = (i + 1) % words.length;
-        setText(words[i]);
-      }, interval);
-      return () => clearInterval(id);
-    }
-
     let raf = 0;
     const scramble = (to: string) => {
       const start = performance.now();
@@ -174,7 +170,8 @@ export function ScrambleText({
 
     const id = window.setInterval(() => {
       idx.current = (idx.current + 1) % words.length;
-      scramble(words[idx.current]);
+      if (prefersReducedMotion()) setText(words[idx.current]);
+      else scramble(words[idx.current]);
     }, interval);
     return () => {
       clearInterval(id);

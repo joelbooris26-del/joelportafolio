@@ -1,6 +1,36 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
-import { Close, MenuIcon } from "./ui";
+import { Close, MenuIcon, prefersReducedMotion } from "./ui";
+
+/**
+ * Botón de pausa de las animaciones, para quien las prefiera quietas.
+ * Guarda la preferencia y recarga la página en el mismo punto donde estaba.
+ */
+function MotionToggle() {
+  const paused = prefersReducedMotion();
+  const toggle = () => {
+    try {
+      window.localStorage.setItem("jm:motion", paused ? "on" : "off");
+      window.sessionStorage.setItem("jm:scroll", String(window.scrollY));
+    } catch {
+      /* sin almacenamiento: no se puede recordar */
+    }
+    window.location.reload();
+  };
+  return (
+    <button
+      onClick={toggle}
+      aria-pressed={paused}
+      aria-label={paused ? "Activar las animaciones" : "Pausar las animaciones"}
+      title={paused ? "Activar las animaciones" : "Pausar las animaciones"}
+      className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] text-soft transition-colors hover:border-lime/60 hover:text-lime"
+    >
+      <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="currentColor" aria-hidden="true">
+        {paused ? <path d="M8 5.5v13l11-6.5-11-6.5Z" /> : <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />}
+      </svg>
+    </button>
+  );
+}
 
 const links = [
   { id: "proyectos", label: "Proyectos" },
@@ -92,6 +122,7 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <MotionToggle />
             <a
               href="#contacto"
               className="btn-lime hidden px-5 py-2.5 font-mono text-[0.66rem] uppercase tracking-[0.16em] sm:inline-flex"

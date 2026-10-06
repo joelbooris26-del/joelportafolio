@@ -53,7 +53,7 @@ export const roles = [
   "agentes de IA",
   "chatbots y voz",
   "automatizaciones",
-  "apps móviles",
+  "webs con IA integrada",
 ];
 
 export const bioParagraphs = [
@@ -302,21 +302,21 @@ export const services = [
   },
   {
     n: "02",
-    title: "Chatbots y agentes de voz",
-    text: "Asistentes que atienden por web, WhatsApp, Instagram o teléfono, conocen tu negocio y pasan a una persona cuando hace falta.",
-    tags: ["WhatsApp", "Voz", "Claude / OpenAI"],
+    title: "Chatbots",
+    text: "Asistentes que atienden por WhatsApp, Instagram o tu web, conocen tu negocio, reservan y pasan a una persona cuando hace falta.",
+    tags: ["WhatsApp", "Instagram", "Claude / OpenAI"],
   },
   {
     n: "03",
-    title: "Automatizaciones",
-    text: "Flujos que conectan tus herramientas y hacen solos el trabajo repetitivo: reservas, recordatorios, avisos, hojas de cálculo.",
-    tags: ["n8n", "Make", "Google Sheets"],
+    title: "Agentes de llamadas",
+    text: "Una recepcionista con voz que coge el teléfono cuando tú no puedes: da citas, confirma, recuerda y avisa al equipo si es urgente.",
+    tags: ["Voz", "Citas", "Recordatorios"],
   },
   {
     n: "04",
-    title: "Apps móviles",
-    text: "Una sola base de código para iOS, Android y Web, con backend propio. Es lo que estoy construyendo ahora con One More Step.",
-    tags: ["Expo", "React Native", "Fastify"],
+    title: "Automatizaciones",
+    text: "Flujos que conectan tus herramientas y hacen solos el trabajo repetitivo: reservas, recordatorios, avisos, hojas de cálculo.",
+    tags: ["n8n", "Make", "Google Sheets"],
   },
 ];
 
@@ -331,7 +331,7 @@ export const stats = [
 export const bandWords = [
   "Webs a medida",
   "Agentes de IA",
-  "Apps móviles",
+  "Webs con IA",
   "Automatización",
   "Chatbots",
   "Voz",

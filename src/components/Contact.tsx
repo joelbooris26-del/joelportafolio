@@ -15,9 +15,9 @@ import {
 
 const temas = [
   "Web a medida",
-  "Chatbot o agente de voz",
+  "Chatbot (WhatsApp / Instagram)",
+  "Agente de llamadas",
   "Automatización",
-  "App móvil",
   "Otra idea",
 ];
 
