@@ -102,7 +102,9 @@ export function Cursor() {
 
   return (
     <>
-      <div ref={ring} className="cursor-ring cursor-hidden" aria-hidden="true" />
+      <div ref={ring} className="cursor-ring cursor-hidden" aria-hidden="true">
+        <span className="cursor-ring-in" />
+      </div>
       <div ref={dot} className="cursor-dot cursor-hidden" aria-hidden="true" />
     </>
   );
