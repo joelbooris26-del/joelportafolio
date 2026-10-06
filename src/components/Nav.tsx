@@ -1,37 +1,34 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
-import { getAge, profile } from "@/data/site";
-import { Close, Menu } from "./icons";
+import { Close, MenuIcon } from "./ui";
 
 const links = [
-  { id: "sobre-mi", label: "Sobre mí" },
-  { id: "web", label: "Web a medida" },
-  { id: "automatizacion", label: "Automatización IA" },
-  { id: "apps", label: "Apps" },
-  { id: "sectores", label: "Sectores" },
-  { id: "por-que-yo", label: "Por qué yo" },
+  { id: "proyectos", label: "Proyectos" },
+  { id: "demos", label: "Demos" },
+  { id: "historia", label: "Historia" },
+  { id: "laboratorio", label: "Laboratorio" },
+  { id: "servicios", label: "Servicios" },
   { id: "contacto", label: "Contacto" },
 ];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [active, setActive] = useState<string>("");
+  const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      setScrolled(y > 30);
+      setScrolled(y > 40);
       const h = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(h > 0 ? Math.min(1, y / h) : 0);
-
-      let current = "";
+      let cur = "";
       for (const l of links) {
         const el = document.getElementById(l.id);
-        if (el && el.getBoundingClientRect().top <= 160) current = l.id;
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = l.id;
       }
-      setActive(current);
+      setActive(cur);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -47,142 +44,116 @@ export function Nav() {
 
   return (
     <>
+      {/* Barra de progreso */}
+      <div className="fixed inset-x-0 top-0 z-[90] h-[2px] bg-transparent">
+        <div
+          className="h-full origin-left bg-lime shadow-[0_0_14px_rgba(200,255,62,0.9)]"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </div>
+
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled
-            ? "border-b border-white/10 bg-black/75 backdrop-blur-2xl"
-            : "border-b border-transparent bg-transparent",
+          "fixed inset-x-0 top-0 z-[80] transition-all duration-500",
+          scrolled ? "py-3" : "py-5",
         )}
       >
-        <div className="mx-auto flex h-[4.5rem] max-w-[86rem] items-center justify-between gap-6 px-5 sm:px-8">
-          <a href="#top" className="group flex items-center gap-3">
-            <span className="glass-btn relative grid h-10 w-10 place-items-center overflow-hidden rounded-xl font-display text-[0.92rem] font-bold tracking-tight text-white transition-transform group-hover:scale-105">
+        <div className="mx-auto flex max-w-[84rem] items-center justify-between gap-4 px-5 sm:px-8">
+          <a href="#top" className="group flex items-center gap-3" data-hover>
+            <span className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] font-display text-[0.8rem] font-extrabold text-white backdrop-blur-xl transition-colors group-hover:border-lime/70 group-hover:text-lime">
               JM
             </span>
-            <span className="hidden leading-none sm:block">
-              <span className="block font-display text-[1rem] font-bold tracking-tight text-white">
-                {profile.alias}
-              </span>
-              <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.2em] text-zinc-400">
-                {profile.fullName}
-              </span>
+            <span className="hidden font-mono text-[0.64rem] uppercase leading-tight tracking-[0.22em] text-mute sm:block">
+              Joel
+              <br />
+              portafolio
             </span>
           </a>
 
-          <nav className="glass hidden items-center gap-0.5 rounded-full p-1.5 min-[1380px]:flex">
+          <nav
+            className={cn(
+              "hidden items-center gap-1 rounded-full border border-white/10 p-1.5 backdrop-blur-xl transition-colors lg:flex",
+              scrolled ? "bg-ink/70" : "bg-white/[0.03]",
+            )}
+          >
             {links.map((l) => (
               <a
                 key={l.id}
                 href={`#${l.id}`}
                 className={cn(
-                  "relative rounded-full px-3.5 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] transition-all duration-300",
-                  active === l.id
-                    ? "bg-white/15 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]"
-                    : "text-zinc-400 hover:text-white",
+                  "rounded-full px-4 py-2 font-mono text-[0.64rem] uppercase tracking-[0.16em] transition-all",
+                  active === l.id ? "bg-lime text-ink" : "text-soft hover:text-white",
                 )}
               >
                 {l.label}
-                {l.id === "apps" && (
-                  <span className="ml-1.5 inline-block h-1 w-1 rounded-full bg-white align-middle" />
-                )}
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="glass hidden items-center gap-2 rounded-full px-3.5 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-zinc-300 md:inline-flex">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success" />
-              </span>
-              {getAge()} años · disponible
-            </span>
+          <div className="flex items-center gap-2">
             <a
               href="#contacto"
-              className="glass-btn-primary rounded-full px-4 py-2 font-mono text-[0.66rem] uppercase tracking-[0.14em]"
+              className="btn-lime hidden px-5 py-2.5 font-mono text-[0.66rem] uppercase tracking-[0.16em] sm:inline-flex"
             >
               Hablemos
             </a>
             <button
               aria-label="Abrir menú"
               onClick={() => setOpen(true)}
-              className="glass-btn grid h-10 w-10 place-items-center rounded-xl min-[1380px]:hidden"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/[0.04] text-white backdrop-blur-xl lg:hidden"
             >
-              <Menu className="h-5 w-5" />
+              <MenuIcon className="h-5 w-5" />
             </button>
           </div>
-        </div>
-        <div className="h-px w-full bg-white/5">
-          <div
-            className="h-px bg-gradient-to-r from-transparent via-accent to-accent-soft transition-[width] duration-150"
-            style={{ width: `${progress * 100}%` }}
-          />
         </div>
       </header>
 
       {/* Menú móvil */}
       <div
         className={cn(
-          "fixed inset-0 z-[60] min-[1380px]:hidden",
+          "fixed inset-0 z-[120] lg:hidden",
           open ? "pointer-events-auto" : "pointer-events-none",
         )}
       >
         <div
           className={cn(
-            "absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300",
+            "absolute inset-0 bg-ink/90 backdrop-blur-xl transition-opacity duration-300",
             open ? "opacity-100" : "opacity-0",
           )}
           onClick={() => setOpen(false)}
         />
         <div
           className={cn(
-            "glass-card absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col border-l border-white/10 bg-black/95 px-7 py-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col border-l border-white/10 bg-panel px-7 py-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
             open ? "translate-x-0" : "translate-x-full",
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-zinc-400">
-              Menú
-            </span>
+            <span className="font-mono text-[0.64rem] uppercase tracking-[0.24em] text-mute">Menú</span>
             <button
               aria-label="Cerrar menú"
               onClick={() => setOpen(false)}
-              className="glass-btn grid h-10 w-10 place-items-center rounded-xl text-white"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white"
             >
               <Close className="h-5 w-5" />
             </button>
           </div>
-          <nav className="mt-10 flex flex-col gap-1">
+          <nav className="mt-10 flex flex-col">
             {links.map((l, i) => (
               <a
                 key={l.id}
                 href={`#${l.id}`}
                 onClick={() => setOpen(false)}
-                className="group flex items-baseline gap-4 border-b border-white/5 py-4 font-display text-2xl font-bold tracking-tight text-white transition-colors hover:text-zinc-400"
+                className="flex items-baseline gap-4 border-b border-white/[0.06] py-4 font-display text-2xl font-semibold text-white transition-colors hover:text-lime"
               >
-                <span className="font-mono text-xs text-zinc-500">0{i + 1}</span>
+                <span className="font-mono text-xs text-lime">0{i + 1}</span>
                 {l.label}
-                {l.id === "apps" && (
-                  <span className="ml-auto rounded-full border border-white/20 px-2 py-0.5 font-mono text-[0.5rem] uppercase tracking-[0.14em] text-zinc-400">
-                    pronto
-                  </span>
-                )}
               </a>
             ))}
           </nav>
-          <a
-            href="#contacto"
-            onClick={() => setOpen(false)}
-            className="glass-btn-primary mt-8 rounded-full px-5 py-3.5 text-center font-mono text-xs uppercase tracking-[0.16em]"
-          >
-            Cuéntame tu proyecto
+          <a href="#contacto" onClick={() => setOpen(false)} className="btn-lime mt-8 justify-center px-5 py-3.5 text-sm">
+            Hablemos
           </a>
-          <p className="mt-auto pt-8 font-mono text-[0.62rem] leading-relaxed text-zinc-500">
-            {profile.city} · {profile.region}
-            <br />
-            {profile.email}
-          </p>
         </div>
       </div>
     </>

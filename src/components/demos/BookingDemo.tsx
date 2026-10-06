@@ -3,8 +3,8 @@ import { cn } from "@/utils/cn";
 import { nichesData, type NicheId } from "@/data/niches";
 import { Check, Clock, Spark } from "../icons";
 
-export function BookingDemo() {
-  const [selectedNiche, setSelectedNiche] = useState<NicheId>("salud");
+export function BookingDemo({ initialNiche = "salud" }: { initialNiche?: NicheId }) {
+  const [selectedNiche, setSelectedNiche] = useState<NicheId>(initialNiche);
   const niche = nichesData[selectedNiche];
 
   const days = useMemo(() => {

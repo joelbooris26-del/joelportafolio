@@ -23,8 +23,8 @@ const currentTime = () => {
   return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
 };
 
-export function ChatbotDemo() {
-  const [selectedNiche, setSelectedNiche] = useState<NicheId>("salud");
+export function ChatbotDemo({ initialNiche = "salud" }: { initialNiche?: NicheId }) {
+  const [selectedNiche, setSelectedNiche] = useState<NicheId>(initialNiche);
   const niche = nichesData[selectedNiche];
 
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -54,7 +54,8 @@ export function ChatbotDemo() {
 
   // Desplaza solo el contenedor de mensajes, nunca la página completa.
   useEffect(() => {
-    const box = endRef.current?.parentElement;
+    // El contenedor que hace scroll es el abuelo del marcador (marcador → lista → zona de mensajes).
+    const box = endRef.current?.parentElement?.parentElement;
     if (box) box.scrollTop = box.scrollHeight;
   }, [msgs, typing]);
 

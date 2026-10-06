@@ -5,8 +5,8 @@ import { Check, Phone, PhoneOff, Spark } from "../icons";
 
 type Status = "idle" | "dialing" | "live" | "ended";
 
-export function CallDemo() {
-  const [selectedNiche, setSelectedNiche] = useState<NicheId>("salud");
+export function CallDemo({ initialNiche = "salud" }: { initialNiche?: NicheId }) {
+  const [selectedNiche, setSelectedNiche] = useState<NicheId>(initialNiche);
   const niche = nichesData[selectedNiche];
 
   const [status, setStatus] = useState<Status>("idle");

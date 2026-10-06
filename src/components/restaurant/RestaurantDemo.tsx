@@ -29,7 +29,16 @@ function getTodayHours() {
   return hours[3];
 }
 
-export function RestaurantDemo({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function RestaurantDemo({
+  open,
+  onClose,
+  onContact,
+}: {
+  open: boolean;
+  onClose: () => void;
+  /** Si se pasa, aparece el botón «Quiero una web así» en la barra superior. */
+  onContact?: () => void;
+}) {
   const [mounted, setMounted] = useState(false);
   const [prefill, setPrefill] = useState<Prefill | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -94,7 +103,7 @@ export function RestaurantDemo({ open, onClose }: { open: boolean; onClose: () =
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[70] flex flex-col transition-opacity duration-400",
+        "demo-scope fixed inset-0 z-[150] flex flex-col transition-opacity duration-400",
         open ? "opacity-100" : "pointer-events-none opacity-0",
       )}
       role="dialog"
@@ -128,6 +137,15 @@ export function RestaurantDemo({ open, onClose }: { open: boolean; onClose: () =
               </span>
             </span>
           </div>
+          {onContact && (
+            <button
+              onClick={onContact}
+              className="glass-btn-primary shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-black"
+            >
+              <span className="hidden sm:inline">Quiero una web así</span>
+              <span className="sm:hidden">Quiero una</span>
+            </button>
+          )}
           <button
             onClick={onClose}
             className="glass-btn group flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-zinc-300 hover:text-white"
