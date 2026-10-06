@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { prefersReducedMotion } from "./ui";
 
 type V3 = [number, number, number];
 
@@ -37,9 +36,22 @@ export function GlobeCanvas({ className }: { className?: string }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduce = prefersReducedMotion();
+    // Esta esfera es decorativa y gira despacio: se anima siempre, aunque el sistema
+    // tenga «reducir movimiento», porque sin giro pierde todo su sentido.
     const small = window.innerWidth < 760;
     const pts = fibonacciSphere(small ? 520 : 1000);
+
+    // Puntos brillantes fijos sobre la esfera (giran con ella: marcan bien el movimiento)
+    const markers = Array.from({ length: 12 }, (_, i) => pts[Math.floor((i + 0.5) * (pts.length / 12))]);
+
+    // Tres meridianos (círculos máximos) que también giran con la esfera
+    const meridians: V3[][] = [0, 1, 2].map((m) => {
+      const lon = (m * Math.PI) / 3;
+      return Array.from({ length: 73 }, (_, i) => {
+        const t = (i / 72) * Math.PI * 2;
+        return [Math.cos(t) * Math.cos(lon), Math.sin(t), Math.cos(t) * Math.sin(lon)] as V3;
+      });
+    });
     const stars = Array.from({ length: small ? 40 : 90 }, () => ({
       x: Math.random(),
       y: Math.random(),
@@ -92,7 +104,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
       last = now;
       mouse.x += (mouse.tx - mouse.x) * 0.05;
       mouse.y += (mouse.ty - mouse.y) * 0.05;
-      rotY += dt * 0.00016 + mouse.x * dt * 0.00012;
+      rotY += dt * 0.0004 + mouse.x * dt * 0.00018;
       const rotX = 0.38 + mouse.y * 0.3;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -131,6 +143,42 @@ export function GlobeCanvas({ className }: { className?: string }) {
         else ctx.fillStyle = `rgba(150,175,195,${a * 0.6})`;
         ctx.fillRect(px - size / 2, py - size / 2, size, size);
       }
+
+      // meridianos: solo se ve la mitad de delante, para que se note que giran
+      ctx.lineWidth = 1;
+      for (const line of meridians) {
+        let prev: [number, number, number] | null = null;
+        for (const p of line) {
+          const [x, y, z] = rot(p, rotY, rotX);
+          const k = cam / (cam - z);
+          const px = cx + x * R * k;
+          const py = cy + y * R * k;
+          if (prev && z > 0 && prev[2] > 0) {
+            ctx.strokeStyle = `rgba(200,255,62,${0.05 + 0.2 * z})`;
+            ctx.beginPath();
+            ctx.moveTo(prev[0], prev[1]);
+            ctx.lineTo(px, py);
+            ctx.stroke();
+          }
+          prev = [px, py, z];
+        }
+      }
+
+      // puntos brillantes que giran con la esfera
+      markers.forEach((p, i) => {
+        const [x, y, z] = rot(p, rotY, rotX);
+        if (z < -0.15) return;
+        const k = cam / (cam - z);
+        const d = (z + 1) / 2;
+        const pulse = 1 + 0.25 * Math.sin(now / 380 + i * 1.7);
+        ctx.beginPath();
+        ctx.arc(cx + x * R * k, cy + y * R * k, (2 + d * 2.6) * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,255,62,${0.35 + d * 0.65})`;
+        ctx.shadowColor = "rgba(200,255,62,0.95)";
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
 
       // anillos con satélites
       for (const ring of RINGS) {
@@ -181,10 +229,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
     };
 
     resize();
-    const ro = new ResizeObserver(() => {
-      resize();
-      if (reduce) draw(performance.now());
-    });
+    const ro = new ResizeObserver(resize);
     if (canvas.parentElement) ro.observe(canvas.parentElement);
 
     const io = new IntersectionObserver(([e]) => {
@@ -192,12 +237,8 @@ export function GlobeCanvas({ className }: { className?: string }) {
     });
     io.observe(canvas);
 
-    if (reduce) {
-      draw(performance.now());
-    } else {
-      raf = requestAnimationFrame(loop);
-      window.addEventListener("pointermove", onMove);
-    }
+    raf = requestAnimationFrame(loop);
+    window.addEventListener("pointermove", onMove);
 
     return () => {
       cancelAnimationFrame(raf);

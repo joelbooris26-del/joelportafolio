@@ -52,6 +52,57 @@ function RotatingBadge() {
   );
 }
 
+/** Líneas que van saliendo de arriba hacia abajo al entrar en la página, y ahí se quedan. */
+const terminalLines: { key: string; value: string; ok?: boolean }[] = [
+  { key: "portafolio.joel", value: "iniciado" },
+  { key: "proyectos", value: "4 cargados" },
+  { key: "demos", value: "3 listas para probar" },
+  { key: "ubicación", value: "La Línea, Cádiz" },
+  { key: "estado", value: "disponible", ok: true },
+];
+const DOTS = 22;
+
+function HeroTerminal() {
+  const [shown, setShown] = useState(0);
+
+  useEffect(() => {
+    const timers: number[] = [];
+    terminalLines.forEach((_, i) => {
+      timers.push(window.setTimeout(() => setShown(i + 1), 700 + i * 650));
+    });
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div
+      className="w-full max-w-[24rem] overflow-hidden rounded-2xl border border-white/10 bg-ink/70 font-mono text-[0.72rem] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+      aria-label="Estado del portafolio"
+    >
+      <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
+        <span className="h-2 w-2 rounded-full bg-white/25" />
+        <span className="h-2 w-2 rounded-full bg-white/25" />
+        <span className="h-2 w-2 rounded-full bg-lime" />
+        <span className="ml-2 text-[0.6rem] uppercase tracking-[0.22em] text-mute">joel.sh</span>
+      </div>
+
+      {/* Altura fija: las líneas aparecen sin que la caja salte ni mueva la portada */}
+      <div className="h-[8.6rem] space-y-1.5 px-4 py-3.5">
+        {terminalLines.slice(0, shown).map((l) => (
+          <p key={l.key} className="line-in whitespace-nowrap text-soft">
+            <span className="text-lime">&gt;</span> {l.key}{" "}
+            <span className="text-white/25">{".".repeat(Math.max(2, DOTS - l.key.length))}</span>{" "}
+            <span className={l.ok ? "text-lime" : "text-white"}>
+              {l.value}
+              {l.ok && " ✓"}
+            </span>
+          </p>
+        ))}
+        <span className="caret text-lime">▍</span>
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   const time = useMadridTime();
   const age = getAge();
@@ -96,12 +147,7 @@ export function Hero() {
                 {ch}
               </span>
             ))}
-            <span className="orb" aria-hidden="true">
-              <span className="orb-ring">
-                <span className="orb-sat" />
-              </span>
-              <span className="orb-core" />
-            </span>
+            <span className="inline-block h-[0.14em] w-[0.14em] rounded-full bg-lime align-baseline shadow-[0_0_30px_rgba(200,255,62,0.9)]" />
           </h1>
 
           <p className="mt-8 font-display text-[clamp(1.3rem,3.2vw,2.5rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-white">
@@ -135,13 +181,9 @@ export function Hero() {
         </div>
 
         {/* HUD inferior */}
-        <div className="flex items-end justify-between gap-6">
-          <div className="hidden font-mono text-[0.62rem] uppercase leading-relaxed tracking-[0.22em] text-mute sm:block">
-            Desliza
-            <br />
-            <span className="text-soft">para ver lo que he construido</span>
-          </div>
-          <div className="ml-auto">
+        <div className="flex flex-col items-stretch gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <HeroTerminal />
+          <div className="self-end">
             <RotatingBadge />
           </div>
         </div>
