@@ -193,6 +193,7 @@
 .btn-lime {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   background: #c8ff3e;
   color: #06080a;
@@ -213,6 +214,7 @@
 .btn-ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.03);
@@ -410,6 +412,90 @@
 }
 .drift {
   animation: drift 14s ease-in-out infinite;
+}
+
+/* ── Bola giratoria junto al nombre ──────────────────────────────────
+   Todo en «em»: se escala sola con el tamaño del titular.
+   Núcleo con meridianos que se deslizan (parece una esfera girando),
+   anillo inclinado que orbita y un satélite que lo recorre.            */
+@keyframes orb-meridians {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0.04em 0;
+  }
+}
+@keyframes orb-ring {
+  from {
+    transform: rotateX(72deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(72deg) rotateZ(360deg);
+  }
+}
+.orb {
+  position: relative;
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-left: 0.05em;
+  vertical-align: baseline;
+  perspective: 1.2em;
+}
+.orb-core {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #f6ffd0 0%, #c8ff3e 38%, #78a014 100%);
+  box-shadow:
+    0 0 0.12em rgba(200, 255, 62, 0.95),
+    0 0 0.45em rgba(200, 255, 62, 0.45);
+}
+.orb-core::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 0.027em,
+    rgba(6, 8, 10, 0.32) 0.027em,
+    rgba(6, 8, 10, 0.32) 0.04em
+  );
+  animation: orb-meridians 0.9s linear infinite;
+}
+.orb-core::after {
+  /* sombreado de los bordes: da volumen de esfera */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, transparent 42%, rgba(6, 8, 10, 0.6) 100%);
+}
+.orb-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.5em;
+  height: 0.5em;
+  margin: -0.25em 0 0 -0.25em;
+  border: 1.5px solid rgba(200, 255, 62, 0.5);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: orb-ring 3.6s linear infinite;
+}
+.orb-sat {
+  position: absolute;
+  left: 50%;
+  top: -0.035em;
+  width: 0.07em;
+  height: 0.07em;
+  margin-left: -0.035em;
+  border-radius: 50%;
+  background: #5ef2ff;
+  box-shadow: 0 0 0.14em #5ef2ff;
 }
 
 /* Escena 3D */

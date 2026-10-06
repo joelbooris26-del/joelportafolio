@@ -96,7 +96,12 @@ export function Hero() {
                 {ch}
               </span>
             ))}
-            <span className="inline-block h-[0.14em] w-[0.14em] rounded-full bg-lime align-baseline shadow-[0_0_30px_rgba(200,255,62,0.9)]" />
+            <span className="orb" aria-hidden="true">
+              <span className="orb-ring">
+                <span className="orb-sat" />
+              </span>
+              <span className="orb-core" />
+            </span>
           </h1>
 
           <p className="mt-8 font-display text-[clamp(1.3rem,3.2vw,2.5rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-white">

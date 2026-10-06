@@ -30,6 +30,22 @@ export function Contact() {
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ nombre: "", email: "", tema: temas[0], msg: "" });
   const [error, setError] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  /** Mensaje ya redactado, para mandarlo desde el propio correo del visitante. */
+  const draft = () => {
+    const subject = `${form.tema} — ${form.nombre.trim() || "Contacto desde tu portafolio"}`;
+    const body = `Hola Joel,\n\n${form.msg.trim()}\n\n— ${form.nombre.trim()}\n${form.email.trim()}\nQuiero hablar de: ${form.tema}`;
+    return { subject, body };
+  };
+  const mailtoHref = () => {
+    const { subject, body } = draft();
+    return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  const gmailHref = () => {
+    const { subject, body } = draft();
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   const copy = async () => {
     try {
@@ -48,15 +64,24 @@ export function Contact() {
     if (form.msg.trim().length < 10) return setError("Cuéntame un poco más sobre tu idea.");
 
     setError(null);
+    setFailed(false);
     setSending(true);
+
+    // Si el servicio no responde en 15 s, se corta y se ofrece el plan B.
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 15000);
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${profile.email}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           _subject: `Nuevo mensaje: ${form.tema} — ${form.nombre.trim()}`,
           _template: "table",
           _captcha: "false",
+          // al pulsar «Responder» en Gmail, la respuesta va directa al visitante
+          _replyto: form.email.trim(),
+          _honey: "",
           Nombre: form.nombre.trim(),
           "Email de contacto": form.email.trim(),
           "Tipo de proyecto": form.tema,
@@ -65,14 +90,15 @@ export function Contact() {
         }),
       });
       const result = await response.json().catch(() => null);
-      if (!response.ok || result?.success === "false" || result?.success === false) {
-        throw new Error("envío fallido");
-      }
+      const ok = response.ok && result?.success !== "false" && result?.success !== false;
+      if (!ok) throw new Error("envío fallido");
       setSent(true);
       setForm({ nombre: "", email: "", tema: temas[0], msg: "" });
     } catch {
-      setError(`No he podido enviar el mensaje ahora mismo. Escríbeme directamente a ${profile.email}.`);
+      setFailed(true);
+      setError("No he podido enviarlo desde aquí. No pasa nada: mándamelo desde tu correo con el mensaje ya escrito.");
     } finally {
+      window.clearTimeout(timer);
       setSending(false);
     }
   };
@@ -235,7 +261,26 @@ export function Contact() {
                       </label>
 
                       {error && (
-                        <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-amber">{error}</p>
+                        <p role="alert" className="font-mono text-[0.62rem] uppercase leading-relaxed tracking-[0.14em] text-amber">
+                          {error}
+                        </p>
+                      )}
+
+                      {failed && (
+                        <div className="flex flex-wrap gap-3">
+                          <a
+                            href={gmailHref()}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn-lime px-5 py-3 text-[0.82rem]"
+                          >
+                            Enviar con mi Gmail
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                          <a href={mailtoHref()} className="btn-ghost px-5 py-3 text-[0.82rem]">
+                            Abrir mi app de correo
+                          </a>
+                        </div>
                       )}
 
                       <button
