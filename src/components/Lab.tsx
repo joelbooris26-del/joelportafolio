@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { sphereWords, stackGroups } from "@/data/content";
-import { Eyebrow, Reveal, prefersReducedMotion } from "./ui";
+import { Eyebrow, Reveal, demoOpen, prefersReducedMotion } from "./ui";
 
 type V3 = [number, number, number];
 
@@ -143,7 +143,7 @@ function SkillSphere() {
     const loop = (now: number) => {
       const dt = Math.min(48, now - last);
       last = now;
-      if (visible && !dragging) {
+      if (visible && !dragging && !demoOpen()) {
         // la velocidad vuelve poco a poco al giro tranquilo (o al del cursor)
         wx += (twx - wx) * 0.045;
         wy += (twy - wy) * 0.045;

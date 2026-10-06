@@ -120,7 +120,7 @@ export function Hero() {
         {/* HUD superior */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.64rem] uppercase tracking-[0.22em] text-mute">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-soft backdrop-blur-xl">
-            <span className="relative flex h-2 w-2 text-success">
+            <span className="relative flex h-2 w-2">
               <span className="pulse-ring absolute inset-0 text-lime" />
               <span className="h-2 w-2 rounded-full bg-lime" />
             </span>

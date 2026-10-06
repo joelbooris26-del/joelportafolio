@@ -20,14 +20,6 @@
   --color-rose: #ff7ab8;
   --color-sky: #6aa7ff;
 
-  /* Solo para las demos (restaurante, llamada, WhatsApp), que conservan su estilo */
-  --font-chef: "Fraunces", ui-serif, Georgia, serif;
-  --font-rbody: "Karla", "IBM Plex Sans", sans-serif;
-  --color-accent: #3b7bf6;
-  --color-accent-soft: #6598ff;
-  --color-accent-deep: #1e50c8;
-  --color-success: #2fbf7f;
-
   --animate-spin-slow: spin 22s linear infinite;
   --animate-spin-rev: spin 34s linear infinite reverse;
 }
@@ -129,8 +121,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.12;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 .scanlines::before {
@@ -187,8 +178,6 @@
 .panel {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
   border: 1px solid var(--color-line);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 .btn-lime {
   display: inline-flex;
@@ -427,6 +416,17 @@
 }
 .line-in {
   animation: line-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Mientras hay una demo abierta, el resto de la página ni se pinta ni se anima:
+   así la demo tiene toda la CPU y la GPU para ella. */
+html.demo-open main,
+html.demo-open header[data-site-nav] {
+  visibility: hidden;
+}
+html.demo-open main *,
+html.demo-open header[data-site-nav] * {
+  animation-play-state: paused !important;
 }
 
 /* Escena 3D */

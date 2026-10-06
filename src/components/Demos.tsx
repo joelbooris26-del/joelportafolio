@@ -1,14 +1,25 @@
-import { useState } from "react";
-import { cn } from "@/utils/cn";
+import { lazy, Suspense } from "react";
 import { demos, type DemoId } from "@/data/content";
-import { DemoModal } from "./DemoModal";
+import { DemoLoading, DemoShell } from "@/demos/DemoShell";
+import type { DemoProps } from "@/demos/kit";
 import { ProjectArt } from "./ProjectArt";
 import { ArrowRight, Check, Eyebrow, Reveal, SpotCard } from "./ui";
-import { CallDemo } from "./demos/CallDemo";
-import { ChatbotDemo } from "./demos/ChatbotDemo";
-import { BookingDemo } from "./demos/BookingDemo";
-import { SupportDemo } from "./demos/SupportDemo";
-import { RestaurantDemo } from "./restaurant/RestaurantDemo";
+
+/* Cada demo es un trozo de código aparte: solo se descarga cuando alguien la abre
+   (o cuando pasa el ratón / el dedo por encima de su tarjeta). Así la página
+   principal pesa poco y las demos no cargan el resto del sitio. */
+const loaders: Record<DemoId, () => Promise<{ default: React.ComponentType<DemoProps> }>> = {
+  llamadas: () => import("@/demos/VoiceDemo"),
+  whatsapp: () => import("@/demos/WhatsAppDemo"),
+  web: () => import("@/demos/WebDemo"),
+};
+const lazyDemos: Record<DemoId, React.LazyExoticComponent<React.ComponentType<DemoProps>>> = {
+  llamadas: lazy(loaders.llamadas),
+  whatsapp: lazy(loaders.whatsapp),
+  web: lazy(loaders.web),
+};
+/** Descarga la demo en segundo plano para que abra al instante. */
+const warm = (id: DemoId) => void loaders[id]();
 
 /* ── Sección: elegir una demo ───────────────────────────────────────────── */
 export function Demos({ onOpen, onContact }: { onOpen: (id: DemoId) => void; onContact: () => void }) {
@@ -59,8 +70,8 @@ export function Demos({ onOpen, onContact }: { onOpen: (id: DemoId) => void; onC
 
                 <ul className="relative mt-5 space-y-2.5">
                   {d.tries.map((t) => (
-                    <li key={t} className="flex items-start gap-2.5 text-[0.88rem] leading-snug text-mute">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0" />
+                    <li key={t} className="flex items-start gap-2.5 text-[0.88rem] leading-snug">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-lime" />
                       <span className="text-soft">{t}</span>
                     </li>
                   ))}
@@ -69,7 +80,10 @@ export function Demos({ onOpen, onContact }: { onOpen: (id: DemoId) => void; onC
                 <div className="relative mt-auto pt-7">
                   <button
                     onClick={() => onOpen(d.id)}
-                    className="btn-lime group/btn w-full justify-center px-6 py-4 text-sm"
+                    onMouseEnter={() => warm(d.id)}
+                    onFocus={() => warm(d.id)}
+                    onTouchStart={() => warm(d.id)}
+                    className="btn-lime group/btn w-full px-6 py-4 text-sm"
                   >
                     {d.cta}
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
@@ -102,49 +116,7 @@ export function Demos({ onOpen, onContact }: { onOpen: (id: DemoId) => void; onC
   );
 }
 
-/* ── Recepcionista de WhatsApp: chat + agenda + bandeja ─────────────────── */
-type WaTab = "chat" | "agenda" | "bandeja";
-
-const waTabs: { id: WaTab; label: string; hint: string }[] = [
-  { id: "chat", label: "Chat de WhatsApp", hint: "Escribe como un cliente" },
-  { id: "agenda", label: "Agenda de reservas", hint: "Los huecos reales" },
-  { id: "bandeja", label: "Bandeja de mensajes", hint: "Cómo los clasifica la IA" },
-];
-
-function WhatsAppSuite() {
-  const [tab, setTab] = useState<WaTab>("chat");
-  return (
-    <div>
-      <div className="swipe-wrap rounded-full">
-        <div className="swipe-x flex gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1.5">
-          {waTabs.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className={cn(
-                "shrink-0 rounded-full px-5 py-2.5 text-left transition-all",
-                tab === t.id ? "bg-lime text-ink" : "text-zinc-300 hover:bg-white/[0.06] hover:text-white",
-              )}
-            >
-              <span className="block font-display text-[0.9rem] font-bold tracking-tight">{t.label}</span>
-              <span className={cn("block font-mono text-[0.54rem] uppercase tracking-[0.14em]", tab === t.id ? "text-ink/60" : "text-zinc-500")}>
-                {t.hint}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div key={tab} className="pop mt-6">
-        {tab === "chat" && <ChatbotDemo initialNiche="restaurante" />}
-        {tab === "agenda" && <BookingDemo initialNiche="restaurante" />}
-        {tab === "bandeja" && <SupportDemo />}
-      </div>
-    </div>
-  );
-}
-
-/* ── Contenedor de todas las demos ──────────────────────────────────────── */
+/* ── Ventana de la demo abierta ─────────────────────────────────────────── */
 export function DemoHost({
   demo,
   onClose,
@@ -154,32 +126,16 @@ export function DemoHost({
   onClose: () => void;
   onContact: () => void;
 }) {
-  const info = (id: DemoId) => demos.find((d) => d.id === id)!;
+  // Si no hay demo abierta no se monta nada: sin temporizadores ni estado en memoria.
+  if (!demo) return null;
+  const info = demos.find((d) => d.id === demo)!;
+  const Demo = lazyDemos[demo];
 
   return (
-    <>
-      <DemoModal
-        open={demo === "llamadas"}
-        onClose={onClose}
-        onContact={onContact}
-        title={info("llamadas").title}
-        accent={info("llamadas").accent}
-      >
-        <CallDemo initialNiche="salud" />
-      </DemoModal>
-
-      <DemoModal
-        open={demo === "whatsapp"}
-        onClose={onClose}
-        onContact={onContact}
-        title={info("whatsapp").title}
-        accent={info("whatsapp").accent}
-      >
-        <WhatsAppSuite />
-      </DemoModal>
-
-      {/* La web de ejemplo es una página completa con su propia ventana */}
-      <RestaurantDemo open={demo === "web"} onClose={onClose} onContact={onContact} />
-    </>
+    <Suspense fallback={<DemoLoading />}>
+      <DemoShell title={info.title} accent={info.accent} onClose={onClose} onContact={onContact}>
+        <Demo onContact={onContact} />
+      </DemoShell>
+    </Suspense>
   );
 }

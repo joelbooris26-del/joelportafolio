@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { demoOpen } from "./ui";
 
 type V3 = [number, number, number];
 
@@ -39,7 +40,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
     // Esta esfera es decorativa y gira despacio: se anima siempre, aunque el sistema
     // tenga «reducir movimiento», porque sin giro pierde todo su sentido.
     const small = window.innerWidth < 760;
-    const pts = fibonacciSphere(small ? 520 : 1000);
+    const pts = fibonacciSphere(small ? 440 : 800);
 
     // Puntos brillantes fijos sobre la esfera (giran con ella: marcan bien el movimiento)
     const markers = Array.from({ length: 12 }, (_, i) => pts[Math.floor((i + 0.5) * (pts.length / 12))]);
@@ -73,7 +74,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
       if (!parent) return;
       w = parent.clientWidth;
       h = parent.clientHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -218,7 +219,7 @@ export function GlobeCanvas({ className }: { className?: string }) {
     };
 
     const loop = (now: number) => {
-      if (visible) draw(now);
+      if (visible && !demoOpen()) draw(now);
       raf = requestAnimationFrame(loop);
     };
 

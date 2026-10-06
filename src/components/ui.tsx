@@ -12,6 +12,10 @@ import { cn } from "@/utils/cn";
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/** ¿Hay una demo abierta? Mientras lo esté, los bucles de animación de la página se paran. */
+export const demoOpen = () =>
+  typeof document !== "undefined" && document.documentElement.classList.contains("demo-open");
+
 /* ── Aparece con fundido al entrar en pantalla ──────────────────────────── */
 export function Reveal({
   children,

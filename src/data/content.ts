@@ -153,7 +153,7 @@ export const projects: Project[] = [
     status: "Desde los 14",
     tagline: "Sin plantillas, con un asistente de IA dentro cuando hace falta.",
     description:
-      "Diseño y desarrollo de webs desde cero: estructura, tipografía, color y funciones propias. La demo es una web de restaurante completa, con carta con filtros, reservas validadas, ubicación, contacto y una asistente integrada. Puedes entrar y probarla.",
+      "Diseño y desarrollo de webs desde cero: estructura, tipografía, color y funciones propias. La demo es una web que puedes personalizar en vivo: cambias de sector, color, tipografía, estilo y tema claro u oscuro, y funcionan el filtro de la carta, la reserva con validación y un asistente.",
     highlights: [
       "React, TypeScript y Tailwind, con rendimiento y SEO local en mente",
       "Demos reales en lugar de maquetas: formularios que validan, filtros que filtran",
@@ -182,12 +182,12 @@ export const demos: Demo[] = [
   {
     id: "llamadas",
     title: "Agente de llamadas",
-    tagline: "Escucha cómo atiende una llamada una recepcionista con IA.",
+    tagline: "Llama a una recepcionista con IA y decide tú qué le contestas.",
     tries: [
-      "Pulsa «Iniciar llamada» y sigue la transcripción en directo",
-      "Activa la voz para oírla por el altavoz",
-      "Cambia de sector y mira otro guion",
-      "Al colgar, mira el resumen y lo que hace solo",
+      "Elige un sector: clínica, restaurante o inmobiliaria",
+      "Pulsa «Llamar» y responde con un toque: la conversación cambia según lo que digas",
+      "Mira, al lado, lo que hace el agente por detrás: agenda, WhatsApp, avisos",
+      "Activa la voz para oírla de verdad",
     ],
     art: "voice",
     accent: "#ffb347",
@@ -196,12 +196,12 @@ export const demos: Demo[] = [
   {
     id: "whatsapp",
     title: "Recepcionista de WhatsApp",
-    tagline: "Escribe como si fueras un cliente y mira cómo responde.",
+    tagline: "Escribe como un cliente, con tus palabras, y mira qué entiende y qué hace.",
     tries: [
-      "Pide una mesa, una cita o un precio",
-      "Toca los botones de respuesta rápida",
-      "Reserva en la agenda y mira los huecos reales",
-      "Abre la bandeja y revisa cómo clasifica los mensajes",
+      "Prueba «mesa para 4 mañana a las 9, uno es celíaco»: entiende la frase entera",
+      "Pide un hueco en una hora llena y mira cómo te ofrece alternativas",
+      "Haz un pedido para recoger o pide hablar con el encargado",
+      "Al lado, ve la reserva que se crea y los datos que ha extraído",
     ],
     art: "chat",
     accent: "#a78bfa",
@@ -210,12 +210,12 @@ export const demos: Demo[] = [
   {
     id: "web",
     title: "Web a medida",
-    tagline: "Una web de restaurante completa, con su asistente dentro.",
+    tagline: "Una web real que personalizas en vivo: sector, color, tipografía y estilo.",
     tries: [
-      "Explora la carta con filtros por categoría",
-      "Reserva con fecha, hora y comensales",
-      "Mira la ubicación y el horario",
-      "Habla con el asistente de la esquina inferior derecha",
+      "Cambia entre restaurante, clínica dental y peluquería",
+      "Prueba colores, tipografías, formas y el modo claro u oscuro",
+      "Filtra la carta y haz una reserva: el formulario valida de verdad",
+      "Pregúntale al asistente de la esquina inferior derecha",
     ],
     art: "web",
     accent: "#6aa7ff",

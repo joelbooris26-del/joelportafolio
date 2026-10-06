@@ -10,7 +10,7 @@ import {
 import { cn } from "@/utils/cn";
 import { projects, type DemoId } from "@/data/content";
 import { ProjectArt } from "./ProjectArt";
-import { ArrowLeft, ArrowRight, Check, Eyebrow, Reveal, prefersReducedMotion } from "./ui";
+import { ArrowLeft, ArrowRight, Check, Eyebrow, Reveal, demoOpen, prefersReducedMotion } from "./ui";
 
 const N = projects.length;
 const STEP = 360 / N;
@@ -75,7 +75,7 @@ export function Projects({ onOpenDemo }: { onOpenDemo: (id: DemoId) => void }) {
       const dt = Math.min(50, now - last);
       last = now;
 
-      if (visible) {
+      if (visible && !demoOpen()) {
         if (!dragging.current) {
           if (Math.abs(velocity.current) > 0.01) {
             // inercia tras soltar

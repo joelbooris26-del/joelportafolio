@@ -53,6 +53,7 @@ export function Nav() {
       </div>
 
       <header
+        data-site-nav
         className={cn(
           "fixed inset-x-0 top-0 z-[80] transition-all duration-500",
           scrolled ? "py-3" : "py-5",
