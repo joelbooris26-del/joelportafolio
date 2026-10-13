@@ -151,12 +151,12 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 font-display text-[clamp(1.3rem,3.2vw,2.5rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-white">
-            Construyo{" "}
-            <span className="inline-block min-w-[9ch] text-lime">
+            Construyo
+            {/* Línea de altura fija y sin saltos de línea: al cambiar de palabra nada se mueve */}
+            <span className="block h-[1.2em] overflow-hidden whitespace-nowrap text-lime">
               <ScrambleText words={roles} />
+              <span className="caret ml-0.5">▍</span>
             </span>
-            <span className="caret ml-0.5 text-lime">▍</span>
-            <br />
             <span className="text-mute">y las dejo funcionando.</span>
           </p>
 

@@ -53,7 +53,7 @@ export const roles = [
   "agentes de IA",
   "chatbots y voz",
   "automatizaciones",
-  "webs con IA integrada",
+  "webs con IA",
 ];
 
 export const bioParagraphs = [
